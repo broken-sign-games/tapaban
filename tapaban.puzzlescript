@@ -1,0 +1,78 @@
+title Tapaban
+author Menderbug
+homepage menderbug.itch.io
+
+========
+OBJECTS
+========
+
+Background 
+GREEN  
+
+Target 
+DarkBlue    
+
+Wall 
+BROWN
+
+Player 
+Blue   
+
+Crate 
+Orange 
+
+=======
+LEGEND
+=======
+
+. = Background
+# = Wall
+P = Player
+* = Crate
+@ = Crate and Target
+O = Target
+
+=======
+SOUNDS
+=======
+
+================
+COLLISIONLAYERS
+================
+
+Background
+Target
+Player, Wall, Crate
+
+======
+RULES     
+======     
+
+[ >  Player | Crate ] -> [  >  Player | > Crate  ]     
+
+==============
+WINCONDITIONS
+==============
+
+All Target on Crate     
+
+=======     
+LEVELS
+=======
+
+#########
+#.......#
+#.....@.#
+#.P.*.O.#
+#.......#
+#.......#
+#########
+
+#########
+#.......#
+#.....@.#
+#.P.*...#
+#.....O.#
+#.......#
+#########
+
