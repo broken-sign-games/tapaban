@@ -483,6 +483,7 @@ Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
 
 ( Check if the clues from both crates can fit on a single crate, otherwise propagate blocking. )
 [ > ClueCrate | stationary BlankCrate ] -> [ ClueCrate | BlankCrate ]
++ [ > BlankCrate | stationary Crate ] -> [ BlankCrate | Crate ]
 + [ > ClueCrate Clue:Fourth:Value:Validity | stationary ClueCrate ] -> [ ClueCrate Clue:Fourth:Value:Validity | ClueCrate ]
 + [ > ClueCrate Clue:Third:Value:Validity | stationary ClueCrate Clue:Second:Value:Validity ] -> [ ClueCrate Clue:Third:Value:Validity | ClueCrate Clue:Second:Value:Validity ]
 + [ > ClueCrate Clue:Second:Value:Validity | stationary ClueCrate Clue:Third:Value:Validity ] -> [ ClueCrate Clue:Second:Value:Validity | ClueCrate Clue:Third:Value:Validity ]
@@ -521,7 +522,7 @@ LEVELS
 #.............#
 #.p.12345678..#
 #.............#
-#...abcdefghi.#
+#.*.abcdefghi.#
 #.............#
 #...jklm...n..#
 #.............#
