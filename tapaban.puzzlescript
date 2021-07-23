@@ -466,6 +466,9 @@ copy: SingleClue:Value:Valid
 _Incremented:Position
 pink
 
+_Decremented:Position
+pink
+
 =======
 LEGEND
 =======
@@ -519,7 +522,7 @@ Player, Wall, Crate
 Position -> Clue:Position:Value:Validity
 SingleClue:Value:Validity
 
-Position -> _Incremented:Position
+Position -> _Incremented:Position _Decremented:Position
 
 ======
 RULES     
@@ -565,6 +568,16 @@ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Seco
 late Position Value [ Clue:Position:Value:Valid IncrementPellet no _Incremented:Position ] -> [ Clue:Position:Increment:Valid IncrementPellet _Incremented:Position ]
 late [ _Incremented:Position IncrementPellet ] -> [ ]
 late [ _Incremented:Position ] -> [ ]
+
+( Increment pellets decrement each clue, dropping 1s )
+late Position [ Clue:Position:_1:Valid DecrementPellet ] -> [ DecrementPellet _Decremented:Position ]
+late Position Value [ Clue:Position:Value:Valid DecrementPellet no _Decremented:Position ] -> [ Clue:Position:Decrement:Valid DecrementPellet _Decremented:Position ]
+late [ _Decremented:Position DecrementPellet ] -> [ ]
+late [ _Decremented:Position ] -> [ ]
+late Value1 [ Clue:Second:Value1:Valid no Clue:First:Value:Valid ] -> [ Clue:First:Value1:Valid ]
++ late Value1 [ Clue:Third:Value1:Valid no Clue:Second:Value:Valid ] -> [ Clue:Second:Value1:Valid ]
++ late Value1 [ Clue:Fourth:Value1:Valid no Clue:Third:Value:Valid ] -> [ Clue:Fourth:Value1:Valid ]
+late [ ClueCrate no Clue:Position:Value:Validity ] -> [ BlankCrate ]
 
 ( Propagate crate movement to clues )
 [ > Crate Clue:Position:Value:Valid ] -> [ > Crate > Clue:Position:Value:Valid ]
