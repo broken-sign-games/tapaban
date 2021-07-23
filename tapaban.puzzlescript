@@ -148,6 +148,24 @@ DecrementPellet
 ...............
 ...............
 
+Splitter
+#444
+...............
+...............
+..0000...0000..
+..00.......00..
+..0.0.....0.0..
+..0..0...0..0..
+...............
+...............
+...............
+..0..0...0..0..
+..0.0.....0.0..
+..00.......00..
+..0000...0000..
+...............
+...............
+
 
 Clue:Position:Value:Validity
 transparent
@@ -478,6 +496,7 @@ LEGEND
 P = Player
 + = IncrementPellet
 - = DecrementPellet
+X = Splitter
 * = BlankCrate
 1 = ClueCrate and Clue:First:_1:Valid
 2 = ClueCrate and Clue:First:_2:Valid
@@ -517,7 +536,7 @@ COLLISIONLAYERS
 ================
 
 Background
-Pellet
+Pellet, Splitter
 Player, Wall, Crate
 Position -> Clue:Position:Value:Validity
 SingleClue:Value:Validity
@@ -543,46 +562,50 @@ Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
 ( Check if the clues from both crates can fit on a single crate, otherwise propagate blocking. )
 [ > ClueCrate | stationary BlankCrate ] -> [ ClueCrate | BlankCrate ]
 + [ > BlankCrate | stationary Crate ] -> [ BlankCrate | Crate ]
-+ [ > ClueCrate Clue:Fourth:Value:Valid | stationary ClueCrate ] -> [ ClueCrate Clue:Fourth:Value:Valid | ClueCrate ]
++ [ > ClueCrate Clue:Fourth:Value:Valid | stationary ClueCrate Clue:First:Value:Valid ] -> [ ClueCrate Clue:Fourth:Value:Valid | ClueCrate Clue:First:Value:Valid ]
 + [ > ClueCrate Clue:Third:Value:Valid | stationary ClueCrate Clue:Second:Value:Valid ] -> [ ClueCrate Clue:Third:Value:Valid | ClueCrate Clue:Second:Value:Valid ]
 + [ > ClueCrate Clue:Second:Value:Valid | stationary ClueCrate Clue:Third:Value:Valid ] -> [ ClueCrate Clue:Second:Value:Valid | ClueCrate Clue:Third:Value:Valid ]
-+ [ > ClueCrate | stationary ClueCrate Clue:Fourth:Value:Valid ] -> [ ClueCrate | ClueCrate Clue:Fourth:Value:Valid ]
++ [ > ClueCrate Clue:First:Value:Valid | stationary ClueCrate Clue:Fourth:Value:Valid ] -> [ ClueCrate Clue:First:Value:Valid | ClueCrate Clue:Fourth:Value:Valid ]
 
 ( Otherwise, merge the two crates. )
-Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
+Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
 + Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
 
-[ > ClueCrate no Clue:Position:Value:Valid ] -> [ ]
+[ > ClueCrate no Clue:Position:Value:Valid | stationary ClueCrate ] -> [ | ClueCrate ]
+
+( Propagate crate movement to clues )
+[ > Crate Clue:Position:Value:Valid ] -> [ > Crate > Clue:Position:Value:Valid ]
+
+(------------- late rules -------------)
 
 ( Increment pellets increment each clue, capped at 8 )
 late Position Value [ Clue:Position:Value:Valid IncrementPellet no _Incremented:Position ] -> [ Clue:Position:Increment:Valid IncrementPellet _Incremented:Position ]
 late [ _Incremented:Position IncrementPellet ] -> [ ]
 late [ _Incremented:Position ] -> [ ]
 
-( Increment pellets decrement each clue, dropping 1s )
+( Decrement pellets decrement each clue, dropping 1s )
 late Position [ Clue:Position:_1:Valid DecrementPellet ] -> [ DecrementPellet _Decremented:Position ]
 late Position Value [ Clue:Position:Value:Valid DecrementPellet no _Decremented:Position ] -> [ Clue:Position:Decrement:Valid DecrementPellet _Decremented:Position ]
 late [ _Decremented:Position DecrementPellet ] -> [ ]
 late [ _Decremented:Position ] -> [ ]
+
 late Value1 [ Clue:Second:Value1:Valid no Clue:First:Value:Valid ] -> [ Clue:First:Value1:Valid ]
 + late Value1 [ Clue:Third:Value1:Valid no Clue:Second:Value:Valid ] -> [ Clue:Second:Value1:Valid ]
 + late Value1 [ Clue:Fourth:Value1:Valid no Clue:Third:Value:Valid ] -> [ Clue:Fourth:Value1:Valid ]
-late [ ClueCrate no Clue:Position:Value:Validity ] -> [ BlankCrate ]
-
-( Propagate crate movement to clues )
-[ > Crate Clue:Position:Value:Valid ] -> [ > Crate > Clue:Position:Value:Valid ]
-
-(------------- late rules -------------)
 
 late Value1 Validity1 [ Clue:First:Value1:Validity1 no Clue:Second:Value:Validity ] -> [ SingleClue:Value1:Validity1 ]
 
@@ -602,7 +625,7 @@ LEVELS
 #.............#
 #...jklm...n..#
 #.............#
-#....+...-....#
+#....+.X.-....#
 #.............#
 ###############
 
