@@ -487,6 +487,24 @@ pink
 _Decremented:Position
 pink
 
+_Temp
+pink
+
+_ProcessingSplitter
+pink
+
+_ProcessedSplitter
+pink
+
+_SplitterLeft
+pink
+
+_SplitterRight
+pink
+
+_SplitterTarget:Position
+pink
+
 =======
 LEGEND
 =======
@@ -543,12 +561,54 @@ SingleClue:Value:Validity
 
 Position -> _Incremented:Position _Decremented:Position
 
+_Temp
+_SplitterLeft, _SplitterRight, _SplitterTarget:Position
+_ProcessingSplitter, _ProcessedSplitter
+
 ======
 RULES     
 ======
 
 Value Validity [ SingleClue:Value:Validity ] -> [ Clue:First:Value:Validity ]
 Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
+
+(----- This will only happen on again turns -----)
+
+( Process splitters one by one )
+
+startloop
+	( Pick a random splitter to process )
+	random [ Splitter no _ProcessedSplitter ] [ stationary Player ] -> [ Splitter _ProcessingSplitter ] [ Player ]
+    
+    ( Only process splitter if there are at least two clues on it )
+    [ _ProcessingSplitter no Clue:Second:Value:Valid ] -> [ _ProcessedSplitter ]
+    
+    ( Mark the splitter's target locations )
+    right [ | _ProcessingSplitter | ] -> [ _SplitterLeft | _ProcessingSplitter | _SplitterRight ]
+    down [ | _SplitterLeft | ] -> [ _SplitterTarget:First | | _SplitterTarget:Fourth ]
+    down [ | _SplitterRight | ] -> [ _SplitterTarget:Third | | _SplitterTarget:Second ]
+    
+    ( Don't process the splitter if any of the required target locations are blocked by the player, 
+      a wall, blank crate, or full clue crate. )
+    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position Player ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ Player ]
+    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position Wall ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ Wall ]
+    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position BlankCrate ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ BlankCrate ]
+    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position Clue:Fourth:Value:Valid ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ Clue:Fourth:Value:Valid ]
+    
+    ( Create new clue crates where necessary )
+    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:First:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position ClueCrate Clue:First:Value1:Valid ]
+    ( Append remaining clues to existing clue crates )
+    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:Second:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position Clue:Second:Value1:Valid ]
+    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:Third:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position Clue:Third:Value1:Valid ]
+    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:Fourth:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position Clue:Fourth:Value1:Valid ]
+    
+    ( Clean up )
+    [ _SplitterTarget:Position ] -> [ ]
+    [ _ProcessingSplitter ClueCrate ] -> [ _ProcessedSplitter ]
+endloop
+[ _ProcessedSplitter ] -> [ ]
+
+(----- End of again turns ----- )
 
 ( Player can push multiple crates )
 [ > Player | Crate ] -> [ > Player | > Crate ]
@@ -592,6 +652,9 @@ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Firs
 
 (------------- late rules -------------)
 
+( Trigger another turn to process splitters )
+late [ Splitter Clue:Second:Value:Valid ] -> [ Splitter Clue:Second:Value:Valid ] again
+
 ( Increment pellets increment each clue, capped at 8 )
 late Position Value [ Clue:Position:Value:Valid IncrementPellet no _Incremented:Position ] -> [ Clue:Position:Increment:Valid IncrementPellet _Incremented:Position ]
 late [ _Incremented:Position IncrementPellet ] -> [ ]
@@ -626,6 +689,18 @@ LEVELS
 #...jklm...n..#
 #.............#
 #....+.X.-....#
+#.............#
+###############
+
+###############
+#..........####
+#.p........####
+#..1.2.3.4.####
+#.............#
+#.........+...#
+#.........+...#
+#..x..---.....#
+#.............#
 #.............#
 ###############
 
