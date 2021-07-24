@@ -63,6 +63,24 @@ Background
 100000000000001
 111111111111111
 
+CorrectBackground
+#002200 #003300
+111111111111111
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+111111111111111
+
 Wall 
 #ddd
 
@@ -524,7 +542,7 @@ darkred
 ...............
 ...............
 ............00.
-............0..
+............00.
 ...............
 
 2x2TopRight
@@ -555,10 +573,10 @@ darkred
 ...............
 ...............
 ...............
-...........0000
-...........0000
-...........0000
-...........0000
+...............
+............000
+............000
+............000
 
 UncluedBlock:_TR
 darkred
@@ -585,7 +603,7 @@ darkred
 ...............
 ...............
 ...............
-000000000000000
+...............
 000000000000000
 000000000000000
 000000000000000
@@ -714,6 +732,8 @@ _TapaValue4 = _TapaValue
 _TapaValue5 = _TapaValue
 _TapaValue6 = _TapaValue
 
+Invalidator = Clue:Position:Value:Invalid or UncluedBlock:Neighbor or 2x2 or Unreachable
+
 =======
 SOUNDS
 =======
@@ -723,6 +743,7 @@ COLLISIONLAYERS
 ================
 
 Background
+CorrectBackground
 2x2TopLeft
 2x2TopRight
 2x2BottomLeft
@@ -926,6 +947,11 @@ startloop
 endloop
 late [ _ProcessedClues ] -> [ ]
 
+( Mark floor as valid if no rules were violated )
+late [ Background ] -> [ CorrectBackground ]
+late [ CorrectBackground ] [ Invalidator ] -> [ Background ] [ Invalidator ]
+late [ CorrectBackground ] -> [ CorrectBackground ] win
+
 late Value1 Validity1 [ Clue:First:Value1:Validity1 no Clue:Second:Value:Validity ] -> [ SingleClue:Value1:Validity1 ]
 
 ==============
@@ -935,6 +961,15 @@ WINCONDITIONS
 =======     
 LEVELS
 =======
+
+##########
+#####..###
+#.p....###
+#.#.##*..#
+#..*##.#.#
+###......#
+###..#####
+##########
 
 ###############
 #.............#
