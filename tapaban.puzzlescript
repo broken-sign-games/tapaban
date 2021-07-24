@@ -586,16 +586,40 @@ pink
 _ProcessedSplitter
 pink
 
-_SplitterLeft
+_ProcessingClues
 pink
 
-_SplitterRight
+_ProcessedClues
+pink
+
+_Above
+pink
+
+_Below
 pink
 
 _SplitterTarget:Position
 pink
 
 _2x2Candidate
+pink
+
+_StartList
+pink
+
+_EndList
+pink
+
+_Black
+pink
+
+_White
+pink
+
+_StartBlock
+pink
+
+_EndBlock
 pink
 
 =======
@@ -642,6 +666,14 @@ TapaBlank = Crate or Wall
 
 2x2 = 2x2TopLeft or 2x2TopRight or 2x2BottomLeft or 2x2BottomRight
 
+_TapaValue = _Black or _White
+_TapaValue1 = _TapaValue
+_TapaValue2 = _TapaValue
+_TapaValue3 = _TapaValue
+_TapaValue4 = _TapaValue
+_TapaValue5 = _TapaValue
+_TapaValue6 = _TapaValue
+
 =======
 SOUNDS
 =======
@@ -664,9 +696,14 @@ SingleClue:Value:Validity
 Position -> _Incremented:Position _Decremented:Position
 
 _Temp
-_SplitterLeft, _SplitterRight, _SplitterTarget:Position
+_Above, _Below, _SplitterTarget:Position
 _ProcessingSplitter, _ProcessedSplitter
+_ProcessingClues, _ProcessedClues
 _2x2Candidate
+_StartList, _EndList
+_TapaValue
+_StartBlock
+_EndBlock
 
 ======
 RULES     
@@ -687,9 +724,9 @@ startloop
     [ _ProcessingSplitter no Clue:Second:Value:Valid ] -> [ _ProcessedSplitter ]
     
     ( Mark the splitter's target locations )
-    right [ | _ProcessingSplitter | ] -> [ _SplitterLeft | _ProcessingSplitter | _SplitterRight ]
-    down [ | _SplitterLeft | ] -> [ _SplitterTarget:First | | _SplitterTarget:Fourth ]
-    down [ | _SplitterRight | ] -> [ _SplitterTarget:Third | | _SplitterTarget:Second ]
+    down [ | _ProcessingSplitter | ] -> [ _Above | _ProcessingSplitter | _Below ]
+    right [ | _Above | ] -> [ _SplitterTarget:First | | _SplitterTarget:Third ]
+    right [ | _Below | ] -> [ _SplitterTarget:Fourth | | _SplitterTarget:Second ]
     
     ( Don't process the splitter if any of the required target locations are blocked by the player, 
       a wall, blank crate, or full clue crate. )
@@ -788,6 +825,54 @@ late right [ 2x2TopLeft | ] -> [ 2x2TopLeft | 2x2TopRight ]
 late down [ 2x2TopLeft | ] -> [ 2x2TopLeft | 2x2BottomLeft ]
 late down [ 2x2TopRight | ] -> [ 2x2TopRight | 2x2BottomRight ]
 
+( Validate Tapa clues )
+startloop
+	( Pick a random splitter to process and set up list markers )
+	late right random [ Clue:First:Value:Valid no _ProcessedClues ] [ | | | | | | | ] -> [ Clue:First:Value:Valid _ProcessingClues ] [ _StartList _Black | _Black | _Black | _Black | _Black | _Black | _Black | _Black _EndList ]
+    
+    ( Record neighbors into list )
+    late down [ | _ProcessingClues | ] -> [ _Above | _ProcessingClues | _Below ]
+    late right [ _StartList _Black ] [ TapaBlank | _Above ] -> [ _StartList _White ] [ TapaBlank | _Above ]
+    late right [ _StartList | _Black ] [ _Above TapaBlank ] -> [ _StartList | _White ] [ _Above TapaBlank ]
+    late right [ _StartList | | _Black ] [ _Above | TapaBlank ] -> [ _StartList | | _White ] [ _Above | TapaBlank ]
+    late right [ _StartList | | | _Black ] [ _ProcessingClues | TapaBlank ] -> [ _StartList | | | _White ] [ _ProcessingClues | TapaBlank ]
+    late right [ _StartList | | | | _Black ] [ _Below | TapaBlank ] -> [ _StartList | | | | _White ] [ _Below | TapaBlank ]
+    late right [ _StartList | | | | | _Black ] [ _Below TapaBlank ] -> [ _StartList | | | | | _White ] [ _Below TapaBlank ]
+    late right [ _StartList | | | | | | _Black ] [ TapaBlank | _Below ] -> [ _StartList | | | | | | _White ] [ TapaBlank | _Below ]
+    late right [ _StartList | | | | | | | _Black ] [ TapaBlank | _ProcessingClues ] -> [ _StartList | | | | | | | _White ] [ TapaBlank | _ProcessingClues ]
+    
+    ( Rotate neighbours until start and end and aren't both black )
+    late right [ _StartList _Black | _TapaValue1 | _TapaValue2 | _TapaValue3 | _TapaValue4 | _TapaValue5 | _TapaValue6 | _Black _EndList ] -> [ _StartList _Black | _Black | _TapaValue1 | _TapaValue2 | _TapaValue3 | _TapaValue4 | _TapaValue5 | _TapaValue6 _EndList ]
+	
+    ( Mark the start and end of each block of black )
+    late [ _StartList _Black ] -> [ _StartList _StartBlock _Black ]
+    late [ _Black _EndList ] -> [ _Black _EndBlock _EndList ]
+    late right [ _White | _Black ] -> [ _White | _StartBlock _Black ]
+    late right [ _Black | _White ] -> [ _Black _Endblock | _White ]
+    
+    ( Mark valid clues )
+    late Position Value [ _ProcessingClues Clue:Position:Value:Valid ] -> [ _ProcessingClues Clue:Position:Value:Invalid ]
+    late right Position [ _StartBlock _EndBlock ] [ _ProcessingClues Clue:Position:_1:Invalid ] -> [ ] [ _ProcessingClues Clue:Position:_1:Valid ]
+	late right Position [ _StartBlock | _EndBlock ] [ _ProcessingClues Clue:Position:_2:Invalid ] -> [ | ] [ _ProcessingClues Clue:Position:_2:Valid ]
+	late right Position [ _StartBlock | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_3:Invalid ] -> [ | | ] [ _ProcessingClues Clue:Position:_3:Valid ]
+	late right Position [ _StartBlock | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_4:Invalid ] -> [ | | | ] [ _ProcessingClues Clue:Position:_4:Valid ]
+	late right Position [ _StartBlock | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_5:Invalid ] -> [ | | | | ] [ _ProcessingClues Clue:Position:_5:Valid ]
+	late right Position [ _StartBlock | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_6:Invalid ] -> [ | | | | | ] [ _ProcessingClues Clue:Position:_6:Valid ]
+	late right Position [ _StartBlock | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_7:Invalid ] -> [ | | | | | | ] [ _ProcessingClues Clue:Position:_7:Valid ]
+	late right Position [ _StartBlock | _Black | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_8:Invalid ] -> [ | | | | | | | ] [ _ProcessingClues Clue:Position:_8:Valid ]
+
+	( Clean up )
+    late [ _StartList ] -> [ ]
+    late [ _EndList ] -> [ ]
+    late [ _StartBlock ] -> [ ]
+    late [ _EndBlock ] -> [ ]
+    late [ _TapaValue ] -> [ ]
+    late [ _Above ] -> [ ]
+    late [ _Below ] -> [ ]
+    late [ _ProcessingClues ] -> [ _ProcessedClues ]
+endloop
+late [ _ProcessedClues ] -> [ ]
+
 late Value1 Validity1 [ Clue:First:Value1:Validity1 no Clue:Second:Value:Validity ] -> [ SingleClue:Value1:Validity1 ]
 
 ==============
@@ -825,7 +910,7 @@ LEVELS
 #########
 #.......#
 #.....*.#
-#.P.*...#
+#.P.8...#
 #.......#
 #.......#
 #########
