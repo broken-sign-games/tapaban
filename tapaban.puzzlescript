@@ -21,6 +21,16 @@ Value2 = Value
 Validity1 = Validity
 Validity2 = Validity
 
+Neighbor = _TL _T _TR _R _BR _B _BL _L
+Neighbor1 = Neighbor
+Neighbor2 = Neighbor
+Neighbor3 = Neighbor
+Neighbor4 = Neighbor
+Neighbor5 = Neighbor
+Neighbor6 = Neighbor
+Neighbor7 = Neighbor
+Neighbor8 = Neighbor
+
 =========
 MAPPINGS
 =========
@@ -519,57 +529,78 @@ darkred
 
 2x2TopRight
 darkred
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-.00............
-..0............
-...............
+copy: 2x2TopLeft rot:right:down
 
 2x2BottomLeft
 darkred
-...............
-............0..
-............00.
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
+copy: 2x2TopLeft rot:down:right
 
 2x2BottomRight
 darkred
-...............
-..0............
-.00............
-...............
-...............
-...............
-...............
-...............
-...............
+copy: 2x2TopLeft rot:down:up
+
+UncluedBlock:Neighbor
+transparent
+
+UncluedBlock:_TL
+darkred
 ...............
 ...............
 ...............
 ...............
 ...............
 ...............
+...............
+...............
+...............
+...............
+...............
+...........0000
+...........0000
+...........0000
+...........0000
+
+UncluedBlock:_TR
+darkred
+copy: UncluedBlock:_TL rot:right:down
+
+UncluedBlock:_BL
+darkred
+copy: UncluedBlock:_TL rot:down:right
+
+UncluedBlock:_BR
+darkred
+copy: UncluedBlock:_TL rot:down:up
+
+UncluedBlock:_T
+darkred
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+000000000000000
+000000000000000
+000000000000000
+000000000000000
+
+UncluedBlock:_R
+darkred
+copy: UncluedBlock:_T rot:right:down
+
+UncluedBlock:_L
+darkred
+copy: UncluedBlock:_T rot:left:down
+
+UncluedBlock:_B
+darkred
+copy: UncluedBlock:_T rot:down:up
 
 _Incremented:Position
 pink
@@ -590,6 +621,9 @@ _ProcessingClues
 pink
 
 _ProcessedClues
+pink
+
+_Processing:Neighbor
 pink
 
 _Above
@@ -620,6 +654,12 @@ _StartBlock
 pink
 
 _EndBlock
+pink
+
+_Source:Neighbor
+pink
+
+_StartCluedBlock
 pink
 
 =======
@@ -687,6 +727,7 @@ Background
 2x2TopRight
 2x2BottomLeft
 2x2BottomRight
+Neighbor -> UncluedBlock:Neighbor
 Pellet, Splitter
 Unreachable
 Player, Wall, Crate
@@ -699,11 +740,13 @@ _Temp
 _Above, _Below, _SplitterTarget:Position
 _ProcessingSplitter, _ProcessedSplitter
 _ProcessingClues, _ProcessedClues
+_Processing:Neighbor
 _2x2Candidate
 _StartList, _EndList
 _TapaValue
-_StartBlock
+_StartBlock, _StartCluedBlock
 _EndBlock
+_Source:Neighbor
 
 ======
 RULES     
@@ -826,23 +869,24 @@ late down [ 2x2TopLeft | ] -> [ 2x2TopLeft | 2x2BottomLeft ]
 late down [ 2x2TopRight | ] -> [ 2x2TopRight | 2x2BottomRight ]
 
 ( Validate Tapa clues )
+late [ UncluedBlock:Neighbor ] -> [ ]
 startloop
 	( Pick a random splitter to process and set up list markers )
-	late right random [ Clue:First:Value:Valid no _ProcessedClues ] [ | | | | | | | ] -> [ Clue:First:Value:Valid _ProcessingClues ] [ _StartList _Black | _Black | _Black | _Black | _Black | _Black | _Black | _Black _EndList ]
+	late random [ Clue:First:Value:Valid no _ProcessedClues ] -> [ Clue:First:Value:Valid _ProcessingClues _Temp ]
+    late right [ _Temp ] [ | | | | | | | ] -> [ ] [ _StartList _Black _Source:_TL | _Black  _Source:_T | _Black  _Source:_TR | _Black _Source:_R | _Black _Source:_BR | _Black _Source:_B | _Black _Source:_BL | _Black _Source:_L _EndList ]
+    
+    ( Mark neighbors )
+    late down [ | _ProcessingClues | ] -> [ _Above | _ProcessingClues | _Below ]
+    late right [ | _Above | ] -> [ _Processing:_TL |  _Processing:_T | _Processing:_TR ]
+    late right [ | _ProcessingClues | ] -> [ _Processing:_L |  _ProcessingClues | _Processing:_R ]
+    late right [ | _Below | ] -> [ _Processing:_BL |  _Processing:_B | _Processing:_BR ]
     
     ( Record neighbors into list )
-    late down [ | _ProcessingClues | ] -> [ _Above | _ProcessingClues | _Below ]
-    late right [ _StartList _Black ] [ TapaBlank | _Above ] -> [ _StartList _White ] [ TapaBlank | _Above ]
-    late right [ _StartList | _Black ] [ _Above TapaBlank ] -> [ _StartList | _White ] [ _Above TapaBlank ]
-    late right [ _StartList | | _Black ] [ _Above | TapaBlank ] -> [ _StartList | | _White ] [ _Above | TapaBlank ]
-    late right [ _StartList | | | _Black ] [ _ProcessingClues | TapaBlank ] -> [ _StartList | | | _White ] [ _ProcessingClues | TapaBlank ]
-    late right [ _StartList | | | | _Black ] [ _Below | TapaBlank ] -> [ _StartList | | | | _White ] [ _Below | TapaBlank ]
-    late right [ _StartList | | | | | _Black ] [ _Below TapaBlank ] -> [ _StartList | | | | | _White ] [ _Below TapaBlank ]
-    late right [ _StartList | | | | | | _Black ] [ TapaBlank | _Below ] -> [ _StartList | | | | | | _White ] [ TapaBlank | _Below ]
-    late right [ _StartList | | | | | | | _Black ] [ TapaBlank | _ProcessingClues ] -> [ _StartList | | | | | | | _White ] [ TapaBlank | _ProcessingClues ]
+    late Neighbor [ _Source:Neighbor _Black ] [ _Processing:Neighbor TapaBlank ] -> [ _Source:Neighbor _White ] [ _Processing:Neighbor TapaBlank ]
     
     ( Rotate neighbours until start and end and aren't both black )
-    late right [ _StartList _Black | _TapaValue1 | _TapaValue2 | _TapaValue3 | _TapaValue4 | _TapaValue5 | _TapaValue6 | _Black _EndList ] -> [ _StartList _Black | _Black | _TapaValue1 | _TapaValue2 | _TapaValue3 | _TapaValue4 | _TapaValue5 | _TapaValue6 _EndList ]
+    late right [ _StartList _Black _Source:Neighbor | ... | _Black _EndList | no _TapaValue ] [ _White ] -> [ _StartList | ... | _Black _EndList | _Black _Source:Neighbor ] [ _White ]
+    + late right [ no _TapaValue | _TapaValue _Source:Neighbor ] -> [ _TapaValue _Source:Neighbor | ]
 	
     ( Mark the start and end of each block of black )
     late [ _StartList _Black ] -> [ _StartList _StartBlock _Black ]
@@ -850,16 +894,23 @@ startloop
     late right [ _White | _Black ] -> [ _White | _StartBlock _Black ]
     late right [ _Black | _White ] -> [ _Black _Endblock | _White ]
     
-    ( Mark valid clues )
+    ( Mark all clues and neighbors as invalid )
     late Position Value [ _ProcessingClues Clue:Position:Value:Valid ] -> [ _ProcessingClues Clue:Position:Value:Invalid ]
-    late right Position [ _StartBlock _EndBlock ] [ _ProcessingClues Clue:Position:_1:Invalid ] -> [ ] [ _ProcessingClues Clue:Position:_1:Valid ]
-	late right Position [ _StartBlock | _EndBlock ] [ _ProcessingClues Clue:Position:_2:Invalid ] -> [ | ] [ _ProcessingClues Clue:Position:_2:Valid ]
-	late right Position [ _StartBlock | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_3:Invalid ] -> [ | | ] [ _ProcessingClues Clue:Position:_3:Valid ]
-	late right Position [ _StartBlock | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_4:Invalid ] -> [ | | | ] [ _ProcessingClues Clue:Position:_4:Valid ]
-	late right Position [ _StartBlock | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_5:Invalid ] -> [ | | | | ] [ _ProcessingClues Clue:Position:_5:Valid ]
-	late right Position [ _StartBlock | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_6:Invalid ] -> [ | | | | | ] [ _ProcessingClues Clue:Position:_6:Valid ]
-	late right Position [ _StartBlock | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_7:Invalid ] -> [ | | | | | | ] [ _ProcessingClues Clue:Position:_7:Valid ]
-	late right Position [ _StartBlock | _Black | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_8:Invalid ] -> [ | | | | | | | ] [ _ProcessingClues Clue:Position:_8:Valid ]
+    late Neighbor [ _Processing:Neighbor ] -> [ _Processing:Neighbor UncluedBlock:Neighbor ]
+    
+    ( Clear valid clues )
+    late right Position [ _StartBlock _EndBlock ] [ _ProcessingClues Clue:Position:_1:Invalid ] -> [ _StartCluedBlock _EndBlock ] [ _ProcessingClues Clue:Position:_1:Valid ]
+	late right Position [ _StartBlock | _EndBlock ] [ _ProcessingClues Clue:Position:_2:Invalid ] -> [ _StartCluedBlock | _EndBlock ] [ _ProcessingClues Clue:Position:_2:Valid ]
+	late right Position [ _StartBlock | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_3:Invalid ] -> [ _StartCluedBlock | | _EndBlock ] [ _ProcessingClues Clue:Position:_3:Valid ]
+	late right Position [ _StartBlock | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_4:Invalid ] -> [ _StartCluedBlock | | | _EndBlock ] [ _ProcessingClues Clue:Position:_4:Valid ]
+	late right Position [ _StartBlock | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_5:Invalid ] -> [ _StartCluedBlock | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_5:Valid ]
+	late right Position [ _StartBlock | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_6:Invalid ] -> [ _StartCluedBlock | | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_6:Valid ]
+	late right Position [ _StartBlock | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_7:Invalid ] -> [ _StartCluedBlock | | | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_7:Valid ]
+	late right Position [ _StartBlock | _Black | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_8:Invalid ] -> [ _StartCluedBlock | | | | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_8:Valid ]
+
+	( Clear valid neighbors )
+    late right Neighbor [ _StartCluedBlock _Source:Neighbor no _EndBlock | ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ | _StartCluedBlock ] [ _Processing:Neighbor ]
+    late right Neighbor [ _StartCluedBlock _Source:Neighbor _EndBlock ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ ] [ _Processing:Neighbor ]
 
 	( Clean up )
     late [ _StartList ] -> [ ]
@@ -869,7 +920,9 @@ startloop
     late [ _TapaValue ] -> [ ]
     late [ _Above ] -> [ ]
     late [ _Below ] -> [ ]
+    late [ _Source:Neighbor ] -> [ ]
     late [ _ProcessingClues ] -> [ _ProcessedClues ]
+    late [ _Processing:Neighbor ] -> [ ]
 endloop
 late [ _ProcessedClues ] -> [ ]
 
