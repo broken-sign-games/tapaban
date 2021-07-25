@@ -814,6 +814,9 @@ endloop
 
 (----- End of again turns ----- )
 
+( Press X on a valid solution to complete the level )
+[ action Player CorrectBackground ] -> [ Player CorrectBackground ] win
+
 ( Player can push multiple crates )
 [ > Player | Crate ] -> [ > Player | > Crate ]
 [ > Crate | Crate ] -> [ > Crate | > Crate ]
@@ -950,7 +953,6 @@ late [ _ProcessedClues ] -> [ ]
 ( Mark floor as valid if no rules were violated )
 late [ Background ] -> [ CorrectBackground ]
 late [ CorrectBackground ] [ Invalidator ] -> [ Background ] [ Invalidator ]
-late [ CorrectBackground ] -> [ CorrectBackground ] win
 
 late Value1 Validity1 [ Clue:First:Value1:Validity1 no Clue:Second:Value:Validity ] -> [ SingleClue:Value1:Validity1 ]
 
@@ -961,6 +963,8 @@ WINCONDITIONS
 =======     
 LEVELS
 =======
+
+message Press X when there is no more red in the level.
 
 ##########
 #####..###
