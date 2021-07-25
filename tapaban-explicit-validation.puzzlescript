@@ -1,0 +1,1031 @@
+title Tapaban
+author Menderbug
+homepage menderbug.itch.io
+background_color #ddd
+text_color #222
+
+sprite_size 15x15
+
+run_rules_on_level_start
+
+=====
+TAGS
+=====
+Position = First Second Third Fourth
+Value = _1 _2 _3 _4 _5 _6 _7 _8
+Validity = Valid Invalid
+
+Value1 = Value
+Value2 = Value
+
+Validity1 = Validity
+Validity2 = Validity
+
+Neighbor = _TL _T _TR _R _BR _B _BL _L
+Neighbor1 = Neighbor
+Neighbor2 = Neighbor
+Neighbor3 = Neighbor
+Neighbor4 = Neighbor
+Neighbor5 = Neighbor
+Neighbor6 = Neighbor
+Neighbor7 = Neighbor
+Neighbor8 = Neighbor
+
+=========
+MAPPINGS
+=========
+
+Value => Increment
+_1 _2 _3 _4 _5 _6 _7 _8 -> _2 _3 _4 _5 _6 _7 _8 _8
+
+Value => Decrement
+_1 _2 _3 _4 _5 _6 _7 _8 -> _1 _1 _2 _3 _4 _5 _6 _7
+
+========
+OBJECTS
+========
+
+Background 
+#111 #222
+111111111111111
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+111111111111111
+
+CorrectBackground
+#002200 #003300
+111111111111111
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+111111111111111
+
+Wall 
+#ddd
+
+Player 
+#888
+...............
+.....00000.....
+.....00000.....
+......000......
+......000......
+.00...000...00.
+.0000000000000.
+.0000000000000.
+.0000000000000.
+.00...000...00.
+......000......
+......000......
+.....00000.....
+.....00000.....
+...............
+
+
+BlankCrate 
+#ddd #bbb
+111111111111111
+110000010000011
+101000010000101
+100100010001001
+100010010010001
+100001010100001
+100000111000001
+111111111111111
+100000111000001
+100001010100001
+100010010010001
+100100010001001
+101000010000101
+110000010000011
+111111111111111
+
+
+ClueCrate 
+#ddd #bbb
+111111111111111
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+100000000000001
+111111111111111
+
+IncrementPellet
+#444 #aaa
+...............
+...............
+...............
+.....00000.....
+....0000000....
+...000010000...
+...000010000...
+...001111100...
+...000010000...
+...000010000...
+....0000000....
+.....00000.....
+...............
+...............
+...............
+
+DecrementPellet
+#444 #aaa
+...............
+...............
+...............
+.....00000.....
+....0000000....
+...000000000...
+...000000000...
+...001111100...
+...000000000...
+...000000000...
+....0000000....
+.....00000.....
+...............
+...............
+...............
+
+Splitter
+#444
+...............
+...............
+..0000...0000..
+..00.......00..
+..0.0.....0.0..
+..0..0...0..0..
+...............
+...............
+...............
+..0..0...0..0..
+..0.0.....0.0..
+..00.......00..
+..0000...0000..
+...............
+...............
+
+
+Clue:Position:Value:Validity
+transparent
+
+Clue:First:_1:Valid
+#ddd #bbb #222
+...............
+...............
+..02200........
+..00200........
+..00200........
+..00200........
+..02220........
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+
+Clue:First:_2:Valid
+#ddd #bbb #222
+...............
+...............
+..02200........
+..00020........
+..00200........
+..02000........
+..02220........
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+
+Clue:First:_3:Valid
+#ddd #bbb #222
+...............
+...............
+..02200........
+..00020........
+..00200........
+..00020........
+..02200........
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+
+Clue:First:_4:Valid
+#ddd #bbb #222
+...............
+...............
+..02000........
+..02020........
+..02220........
+..00020........
+..00020........
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+
+Clue:First:_5:Valid
+#ddd #bbb #222
+...............
+...............
+..02220........
+..02000........
+..02200........
+..00020........
+..02200........
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+
+Clue:First:_6:Valid
+#ddd #bbb #222
+...............
+...............
+..00220........
+..02000........
+..02200........
+..02020........
+..00200........
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+
+Clue:First:_7:Valid
+#ddd #bbb #222
+...............
+...............
+..02220........
+..00020........
+..00200........
+..00200........
+..00200........
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+
+Clue:First:_8:Valid
+#ddd #bbb #222
+...............
+...............
+..00200........
+..02020........
+..00200........
+..02020........
+..00200........
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+
+Clue:Third:Value:Valid
+#ddd #bbb #222
+copy: Clue:First:Value:Valid shift:right shift:right shift:right shift:right shift:right shift:right
+
+Clue:Fourth:Value:Valid
+#ddd #bbb #222
+copy: Clue:First:Value:Valid shift:down shift:down shift:down shift:down shift:down shift:down
+
+Clue:Second:Value:Valid
+#ddd #bbb #222
+copy: Clue:Third:Value:Valid shift:down shift:down shift:down shift:down shift:down shift:down
+
+Clue:Position:Value:Invalid
+#ddd #bbb red
+copy: Clue:Position:Value:Valid
+
+SingleClue:Value:Validity
+transparent
+
+SingleClue:_1:Valid
+#ddd #bbb #222
+...............
+...............
+..00000000000..
+..00002220000..
+..00222220000..
+..00222220000..
+..00002220000..
+..00002220000..
+..00002220000..
+..00002220000..
+..00222222200..
+..00222222200..
+..00000000000..
+...............
+...............
+
+SingleClue:_2:Valid
+#ddd #bbb #222
+...............
+...............
+..00000000000..
+..00022222000..
+..00222222200..
+..00220002200..
+..00000022200..
+..00000222000..
+..00002220000..
+..00022200000..
+..00222222200..
+..00222222200..
+..00000000000..
+...............
+...............
+
+SingleClue:_3:Valid
+#ddd #bbb #222
+...............
+...............
+..00000000000..
+..00022222000..
+..00222222200..
+..00220002200..
+..00000002200..
+..00000222000..
+..00000002200..
+..00220002200..
+..00222222200..
+..00022222000..
+..00000000000..
+...............
+...............
+
+SingleClue:_4:Valid
+#ddd #bbb #222
+...............
+...............
+..00000000000..
+..00002200000..
+..00002200000..
+..00022000000..
+..00022022000..
+..00220022000..
+..00222222200..
+..00222222200..
+..00000022000..
+..00000022000..
+..00000000000..
+...............
+...............
+
+SingleClue:_5:Valid
+#ddd #bbb #222
+...............
+...............
+..00000000000..
+..00222222200..
+..00222222200..
+..00220000000..
+..00222222000..
+..00222222200..
+..00000002200..
+..00220002200..
+..00222222200..
+..00022222000..
+..00000000000..
+...............
+...............
+
+SingleClue:_6:Valid
+#ddd #bbb #222
+...............
+...............
+..00000000000..
+..00022222200..
+..00222222200..
+..00220000000..
+..00222222000..
+..00222222200..
+..00220002200..
+..00220002200..
+..00222222200..
+..00022222000..
+..00000000000..
+...............
+...............
+
+SingleClue:_7:Valid
+#ddd #bbb #222
+...............
+...............
+..00000000000..
+..00222222200..
+..00222222200..
+..00000002200..
+..00000022000..
+..00000220000..
+..00000220000..
+..00002200000..
+..00002200000..
+..00002200000..
+..00000000000..
+...............
+...............
+
+SingleClue:_8:Valid
+#ddd #bbb #222
+...............
+...............
+..00000000000..
+..00022222000..
+..00222222200..
+..00220002200..
+..00220002200..
+..00022222000..
+..00220002200..
+..00220002200..
+..00222222200..
+..00022222000..
+..00000000000..
+...............
+...............
+
+SingleClue:Value:Invalid
+#ddd #bbb red
+copy: SingleClue:Value:Valid
+
+Unreachable
+darkred
+...............
+...............
+...............
+...............
+...............
+...............
+......000......
+......000......
+......000......
+...............
+...............
+...............
+...............
+...............
+...............
+
+2x2TopLeft
+darkred
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+............00.
+............00.
+...............
+
+2x2TopRight
+darkred
+copy: 2x2TopLeft rot:right:down
+
+2x2BottomLeft
+darkred
+copy: 2x2TopLeft rot:down:right
+
+2x2BottomRight
+darkred
+copy: 2x2TopLeft rot:down:up
+
+UncluedBlock:Neighbor
+transparent
+
+UncluedBlock:_TL
+darkred
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+............000
+............000
+............000
+
+UncluedBlock:_TR
+darkred
+copy: UncluedBlock:_TL rot:right:down
+
+UncluedBlock:_BL
+darkred
+copy: UncluedBlock:_TL rot:down:right
+
+UncluedBlock:_BR
+darkred
+copy: UncluedBlock:_TL rot:down:up
+
+UncluedBlock:_T
+darkred
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+000000000000000
+000000000000000
+000000000000000
+
+UncluedBlock:_R
+darkred
+copy: UncluedBlock:_T rot:right:down
+
+UncluedBlock:_L
+darkred
+copy: UncluedBlock:_T rot:left:down
+
+UncluedBlock:_B
+darkred
+copy: UncluedBlock:_T rot:down:up
+
+_Incremented:Position
+pink
+
+_Decremented:Position
+pink
+
+_Temp
+pink
+
+_ProcessingSplitter
+pink
+
+_ProcessedSplitter
+pink
+
+_ProcessingClues
+pink
+
+_ProcessedClues
+pink
+
+_Processing:Neighbor
+pink
+
+_Above
+pink
+
+_Below
+pink
+
+_SplitterTarget:Position
+pink
+
+_2x2Candidate
+pink
+
+_StartList
+pink
+
+_EndList
+pink
+
+_Black
+pink
+
+_White
+pink
+
+_StartBlock
+pink
+
+_EndBlock
+pink
+
+_Source:Neighbor
+pink
+
+_StartCluedBlock
+pink
+
+Timer2
+transparent
+
+Timer1
+transparent
+
+Timer0
+transparent
+
+=======
+LEGEND
+=======
+
+. = Background
+# = Wall
+P = Player
++ = IncrementPellet
+- = DecrementPellet
+X = Splitter
+* = BlankCrate
+1 = ClueCrate and Clue:First:_1:Valid
+2 = ClueCrate and Clue:First:_2:Valid
+3 = ClueCrate and Clue:First:_3:Valid
+4 = ClueCrate and Clue:First:_4:Valid
+5 = ClueCrate and Clue:First:_5:Valid
+6 = ClueCrate and Clue:First:_6:Valid
+7 = ClueCrate and Clue:First:_7:Valid
+8 = ClueCrate and Clue:First:_8:Valid
+
+a = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid
+b = ClueCrate and Clue:First:_1:Valid and Clue:Second:_2:Valid
+c = ClueCrate and Clue:First:_1:Valid and Clue:Second:_3:Valid
+d = ClueCrate and Clue:First:_1:Valid and Clue:Second:_4:Valid
+e = ClueCrate and Clue:First:_1:Valid and Clue:Second:_5:Valid
+f = ClueCrate and Clue:First:_2:Valid and Clue:Second:_2:Valid
+g = ClueCrate and Clue:First:_2:Valid and Clue:Second:_3:Valid
+h = ClueCrate and Clue:First:_2:Valid and Clue:Second:_4:Valid
+i = ClueCrate and Clue:First:_3:Valid and Clue:Second:_3:Valid
+
+j = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid and Clue:Third:_1:Valid
+k = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid and Clue:Third:_2:Valid
+l = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid and Clue:Third:_3:Valid
+m = ClueCrate and Clue:First:_1:Valid and Clue:Second:_2:Valid and Clue:Third:_2:Valid
+
+n = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid and Clue:Third:_1:Valid and Clue:Fourth:_1:Valid
+
+Crate = BlankCrate or ClueCrate
+Pellet = IncrementPellet or DecrementPellet
+
+TapaBlank = Crate or Wall
+
+2x2 = 2x2TopLeft or 2x2TopRight or 2x2BottomLeft or 2x2BottomRight
+
+_TapaValue = _Black or _White
+_TapaValue1 = _TapaValue
+_TapaValue2 = _TapaValue
+_TapaValue3 = _TapaValue
+_TapaValue4 = _TapaValue
+_TapaValue5 = _TapaValue
+_TapaValue6 = _TapaValue
+
+Invalidator = Clue:Position:Value:Invalid or UncluedBlock:Neighbor or 2x2 or Unreachable
+
+Timer = Timer0 or Timer1 or Timer2
+
+=======
+SOUNDS
+=======
+
+================
+COLLISIONLAYERS
+================
+
+Background
+CorrectBackground
+2x2TopLeft
+2x2TopRight
+2x2BottomLeft
+2x2BottomRight
+Neighbor -> UncluedBlock:Neighbor
+Pellet, Splitter
+Unreachable
+Player, Wall, Crate
+Position -> Clue:Position:Value:Validity
+SingleClue:Value:Validity
+
+Position -> _Incremented:Position _Decremented:Position
+
+Timer
+
+_Temp
+_Above, _Below, _SplitterTarget:Position
+_ProcessingSplitter, _ProcessedSplitter
+_ProcessingClues, _ProcessedClues
+_Processing:Neighbor
+_2x2Candidate
+_StartList, _EndList
+_TapaValue
+_StartBlock, _StartCluedBlock
+_EndBlock
+_Source:Neighbor
+
+======
+RULES     
+======
+
+Value Validity [ SingleClue:Value:Validity ] -> [ Clue:First:Value:Validity ]
+
+(----- This will only happen on again turns -----)
+
+( Clear validation markers )
+[ stationary Player no Timer ] [ Unreachable ] -> [ Player ] [ ]
+[ stationary Player no Timer ] [ 2x2 ] -> [ Player ] [ ]
+[ stationary Player no Timer ] [ UncluedBlock:Neighbor ] -> [ Player ] [ ]
+Position Value [ stationary Player no Timer ] [ Clue:Position:Value:Invalid ] -> [ Player ] [ Clue:Position:Value:Valid ]
+
+( Decrement timer )
+[ stationary Player Timer0 ] -> [ Player ] again
+[ stationary Player Timer1 ] -> [ Player Timer0 ] again
+[ stationary Player Timer2 ] -> [ Player Timer1 ] again
+
+( Process splitters one by one )
+startloop
+	( Pick a random splitter to process )
+	random [ Splitter no _ProcessedSplitter ] [ stationary Player ] -> [ Splitter _ProcessingSplitter ] [ Player ]
+    
+    ( Only process splitter if there are at least two clues on it )
+    [ _ProcessingSplitter no Clue:Second:Value:Valid ] -> [ _ProcessedSplitter ]
+    
+    ( Mark the splitter's target locations )
+    down [ | _ProcessingSplitter | ] -> [ _Above | _ProcessingSplitter | _Below ]
+    right [ | _Above | ] -> [ _SplitterTarget:First | | _SplitterTarget:Third ]
+    right [ | _Below | ] -> [ _SplitterTarget:Fourth | | _SplitterTarget:Second ]
+    
+    ( Don't process the splitter if any of the required target locations are blocked by the player, 
+      a wall, blank crate, or full clue crate. )
+    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position Player ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ Player ]
+    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position Wall ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ Wall ]
+    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position BlankCrate ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ BlankCrate ]
+    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position Clue:Fourth:Value:Valid ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ Clue:Fourth:Value:Valid ]
+    
+    ( Create new clue crates where necessary )
+    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:First:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position ClueCrate Clue:First:Value1:Valid ]
+    ( Append remaining clues to existing clue crates )
+    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:Second:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position Clue:Second:Value1:Valid ]
+    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:Third:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position Clue:Third:Value1:Valid ]
+    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:Fourth:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position Clue:Fourth:Value1:Valid ]
+    
+    ( Clean up )
+    [ _SplitterTarget:Position ] -> [ ]
+    [ _ProcessingSplitter ClueCrate ] -> [ _ProcessedSplitter ]
+endloop
+[ _ProcessedSplitter ] -> [ ]
+
+(----- End of again turns ----- )
+
+((( VALIDATION )))
+( Press X to check the solution )
+
+( Mark unreachable cells are invalid )
+[ action Player ] [ no TapaBlank no Player ] -> [ action Player ] [ Unreachable ]
+[ action Player ] [ no TapaBlank no Unreachable | Unreachable ] -> [ action Player ] [ | ]
+
+( Mark 2x2 areas as invalid )
+right [ action Player ] [ no TapaBlank | no TapaBlank ] -> [ action Player ] [ _2x2Candidate | ]
+down [ action Player ] [ _2x2Candidate | _2x2Candidate ] -> [ action Player ] [ 2x2TopLeft _2x2Candidate | _2x2Candidate ]
+[ action Player ] [ _2x2Candidate ] -> [ action Player ] [ ]
+right [ action Player ] [ 2x2TopLeft | ] -> [ action Player ] [ 2x2TopLeft | 2x2TopRight ]
+down [ action Player ] [ 2x2TopLeft | ] -> [ action Player ] [ 2x2TopLeft | 2x2BottomLeft ]
+down [ action Player ] [ 2x2TopRight | ] -> [ action Player ] [ 2x2TopRight | 2x2BottomRight ]
+
+( Validate Tapa clues )
+startloop
+	( Pick a random splitter to process and set up list markers )
+	random [ action Player ] [ Clue:First:Value:Valid no _ProcessedClues ] -> [ action Player ] [ Clue:First:Value:Valid _ProcessingClues _Temp ]
+    right [ action Player ] [ _Temp ] [ | | | | | | | ] -> [ action Player ] [ ] [ _StartList _Black _Source:_TL | _Black  _Source:_T | _Black  _Source:_TR | _Black _Source:_R | _Black _Source:_BR | _Black _Source:_B | _Black _Source:_BL | _Black _Source:_L _EndList ]
+    
+    ( Mark neighbors )
+    down [ action Player ] [ | _ProcessingClues | ] -> [ action Player ] [ _Above | _ProcessingClues | _Below ]
+    right [ action Player ] [ | _Above | ] -> [ action Player ] [ _Processing:_TL |  _Processing:_T | _Processing:_TR ]
+    right [ action Player ] [ | _ProcessingClues | ] -> [ action Player ] [ _Processing:_L |  _ProcessingClues | _Processing:_R ]
+    right [ action Player ] [ | _Below | ] -> [ action Player ] [ _Processing:_BL |  _Processing:_B | _Processing:_BR ]
+    
+    ( Record neighbors into list )
+    Neighbor [ action Player ] [ _Source:Neighbor _Black ] [ _Processing:Neighbor TapaBlank ] -> [ action Player ] [ _Source:Neighbor _White ] [ _Processing:Neighbor TapaBlank ]
+    
+    ( Rotate neighbours until start and end and aren't both black )
+    right [ action Player ] [ _StartList _Black _Source:Neighbor | ... | _Black _EndList | no _TapaValue ] [ _White ] -> [ action Player ] [ _StartList | ... | _Black _EndList | _Black _Source:Neighbor ] [ _White ]
+    + right [ action Player ] [ no _TapaValue | _TapaValue _Source:Neighbor ] -> [ action Player ] [ _TapaValue _Source:Neighbor | ]
+	
+    ( Mark the start and end of each block of black )
+    [ action Player ] [ _StartList _Black ] -> [ action Player ] [ _StartList _StartBlock _Black ]
+    [ action Player ] [ _Black _EndList ] -> [ action Player ] [ _Black _EndBlock _EndList ]
+    right [ action Player ] [ _White | _Black ] -> [ action Player ] [ _White | _StartBlock _Black ]
+    right [ action Player ] [ _Black | _White ] -> [ action Player ] [ _Black _Endblock | _White ]
+    
+    ( Mark all clues and neighbors as invalid )
+    Position Value [ action Player ] [ _ProcessingClues Clue:Position:Value:Valid ] -> [ action Player ] [ _ProcessingClues Clue:Position:Value:Invalid ]
+    Neighbor [ action Player ] [ _Processing:Neighbor ] -> [ action Player ] [ _Processing:Neighbor UncluedBlock:Neighbor ]
+    
+    ( Clear valid clues )
+    right Position [ action Player ] [ _StartBlock _EndBlock ] [ _ProcessingClues Clue:Position:_1:Invalid ] -> [ action Player ] [ _StartCluedBlock _EndBlock ] [ _ProcessingClues Clue:Position:_1:Valid ]
+	right Position [ action Player ] [ _StartBlock | _EndBlock ] [ _ProcessingClues Clue:Position:_2:Invalid ] -> [ action Player ] [ _StartCluedBlock | _EndBlock ] [ _ProcessingClues Clue:Position:_2:Valid ]
+	right Position [ action Player ] [ _StartBlock | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_3:Invalid ] -> [ action Player ] [ _StartCluedBlock | | _EndBlock ] [ _ProcessingClues Clue:Position:_3:Valid ]
+	right Position [ action Player ] [ _StartBlock | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_4:Invalid ] -> [ action Player ] [ _StartCluedBlock | | | _EndBlock ] [ _ProcessingClues Clue:Position:_4:Valid ]
+	right Position [ action Player ] [ _StartBlock | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_5:Invalid ] -> [ action Player ] [ _StartCluedBlock | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_5:Valid ]
+	right Position [ action Player ] [ _StartBlock | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_6:Invalid ] -> [ action Player ] [ _StartCluedBlock | | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_6:Valid ]
+	right Position [ action Player ] [ _StartBlock | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_7:Invalid ] -> [ action Player ] [ _StartCluedBlock | | | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_7:Valid ]
+	right Position [ action Player ] [ _StartBlock | _Black | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_8:Invalid ] -> [ action Player ] [ _StartCluedBlock | | | | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_8:Valid ]
+
+	( Clear valid neighbors )
+    right Neighbor [ action Player ] [ _StartCluedBlock _Source:Neighbor no _EndBlock | ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ action Player ] [ | _StartCluedBlock ] [ _Processing:Neighbor ]
+    right Neighbor [ action Player ] [ _StartCluedBlock _Source:Neighbor _EndBlock ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ action Player ] [ ] [ _Processing:Neighbor ]
+
+	( Clean up )
+    [ _StartList ] -> [ ]
+    [ _EndList ] -> [ ]
+    [ _StartBlock ] -> [ ]
+    [ _EndBlock ] -> [ ]
+    [ _TapaValue ] -> [ ]
+    [ _Above ] -> [ ]
+    [ _Below ] -> [ ]
+    [ _Source:Neighbor ] -> [ ]
+    [ _ProcessingClues ] -> [ _ProcessedClues ]
+    [ _Processing:Neighbor ] -> [ ]
+endloop
+[ _ProcessedClues ] -> [ ]
+
+( Mark floor as valid if no rules were violated )
+[ action Player ] [ Background ] -> [ action Player ] [ CorrectBackground ]
+[ action Player ] [ CorrectBackground ] [ Invalidator ] -> [ action Player ] [ Background ] [ Invalidator ]
+[ action Player CorrectBackground ] -> [ action Player CorrectBackground ] win
+[ action Player no CorrectBackground ] -> [ action Player Timer2 ] again
+
+[ action Player ] -> [ Player ]
+
+( Player can push multiple crates )
+[ > Player | Crate ] -> [ > Player | > Crate ]
+[ > Crate | Crate ] -> [ > Crate | > Crate ]
+
+( Walls block movement. )
+[ > Crate | Wall ] -> [ Crate | Wall ]
+
+( Pushing two crates into a wall attempts to combine the clues. )
+
+( Check if the clues from both crates can fit on a single crate, otherwise propagate blocking. )
+[ > ClueCrate | stationary BlankCrate ] -> [ ClueCrate | BlankCrate ]
++ [ > BlankCrate | stationary Crate ] -> [ BlankCrate | Crate ]
++ [ > ClueCrate Clue:Fourth:Value:Valid | stationary ClueCrate Clue:First:Value:Valid ] -> [ ClueCrate Clue:Fourth:Value:Valid | ClueCrate Clue:First:Value:Valid ]
++ [ > ClueCrate Clue:Third:Value:Valid | stationary ClueCrate Clue:Second:Value:Valid ] -> [ ClueCrate Clue:Third:Value:Valid | ClueCrate Clue:Second:Value:Valid ]
++ [ > ClueCrate Clue:Second:Value:Valid | stationary ClueCrate Clue:Third:Value:Valid ] -> [ ClueCrate Clue:Second:Value:Valid | ClueCrate Clue:Third:Value:Valid ]
++ [ > ClueCrate Clue:First:Value:Valid | stationary ClueCrate Clue:Fourth:Value:Valid ] -> [ ClueCrate Clue:First:Value:Valid | ClueCrate Clue:Fourth:Value:Valid ]
+
+( Otherwise, merge the two crates. )
+Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
++ Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
+
+[ > ClueCrate no Clue:Position:Value:Valid | stationary ClueCrate ] -> [ | ClueCrate ]
+
+( Propagate crate movement to clues )
+[ > Crate Clue:Position:Value:Valid ] -> [ > Crate > Clue:Position:Value:Valid ]
+
+(------------- late rules -------------)
+
+( Trigger another turn to process splitters )
+late [ Splitter Clue:Second:Value:Valid ] -> [ Splitter Clue:Second:Value:Valid ] again
+
+( Increment pellets increment each clue, capped at 8 )
+late Position Value [ Clue:Position:Value:Valid IncrementPellet no _Incremented:Position ] -> [ Clue:Position:Increment:Valid IncrementPellet _Incremented:Position ]
+late [ _Incremented:Position IncrementPellet ] -> [ ]
+late [ _Incremented:Position ] -> [ ]
+
+( Decrement pellets decrement each clue, dropping 1s )
+late Position [ Clue:Position:_1:Valid DecrementPellet ] -> [ DecrementPellet _Decremented:Position ]
+late Position Value [ Clue:Position:Value:Valid DecrementPellet no _Decremented:Position ] -> [ Clue:Position:Decrement:Valid DecrementPellet _Decremented:Position ]
+late [ _Decremented:Position DecrementPellet ] -> [ ]
+late [ _Decremented:Position ] -> [ ]
+
+late Value1 [ Clue:Second:Value1:Valid no Clue:First:Value:Valid ] -> [ Clue:First:Value1:Valid ]
++ late Value1 [ Clue:Third:Value1:Valid no Clue:Second:Value:Valid ] -> [ Clue:Second:Value1:Valid ]
++ late Value1 [ Clue:Fourth:Value1:Valid no Clue:Third:Value:Valid ] -> [ Clue:Fourth:Value1:Valid ]
+
+late Value1 Validity1 [ Clue:First:Value1:Validity1 no Clue:Second:Value:Validity ] -> [ SingleClue:Value1:Validity1 ]
+
+==============
+WINCONDITIONS
+==============
+
+=======     
+LEVELS
+=======
+
+message Press X to check your solution.
+
+##########
+#####..###
+#.p....###
+#.#.##*..#
+#..*##.#.#
+###......#
+###..#####
+##########
+
+###############
+#.............#
+#.p.12345678..#
+#.............#
+#.*.abcdefghi.#
+#.............#
+#...jklm...n..#
+#.............#
+#....+.X.-....#
+#.............#
+###############
+
+###############
+#..........####
+#.p........####
+#..1.2.3.4.####
+#.............#
+#.........+...#
+#.........+...#
+#..x..---.....#
+#.............#
+#.............#
+###############
+
+#########
+#.......#
+#.....*.#
+#.P.8...#
+#.......#
+#.......#
+#########
+
