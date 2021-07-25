@@ -691,14 +691,14 @@ P = Player
 - = DecrementPellet
 X = Splitter
 * = BlankCrate
-1 = ClueCrate and Clue:First:_1:Valid
-2 = ClueCrate and Clue:First:_2:Valid
-3 = ClueCrate and Clue:First:_3:Valid
-4 = ClueCrate and Clue:First:_4:Valid
-5 = ClueCrate and Clue:First:_5:Valid
-6 = ClueCrate and Clue:First:_6:Valid
-7 = ClueCrate and Clue:First:_7:Valid
-8 = ClueCrate and Clue:First:_8:Valid
+1 = ClueCrate and SingleClue:_1:Valid
+2 = ClueCrate and SingleClue:_2:Valid
+3 = ClueCrate and SingleClue:_3:Valid
+4 = ClueCrate and SingleClue:_4:Valid
+5 = ClueCrate and SingleClue:_5:Valid
+6 = ClueCrate and SingleClue:_6:Valid
+7 = ClueCrate and SingleClue:_7:Valid
+8 = ClueCrate and SingleClue:_8:Valid
 
 a = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid
 b = ClueCrate and Clue:First:_1:Valid and Clue:Second:_2:Valid
@@ -737,6 +737,8 @@ Invalidator = Clue:Position:Value:Invalid or UncluedBlock:Neighbor or 2x2 or Unr
 =======
 SOUNDS
 =======
+
+EndLevel 49474303
 
 ================
 COLLISIONLAYERS
@@ -920,7 +922,7 @@ startloop
     
     ( Mark all clues and neighbors as invalid )
     late Position Value [ _ProcessingClues Clue:Position:Value:Valid ] -> [ _ProcessingClues Clue:Position:Value:Invalid ]
-    late Neighbor [ _Processing:Neighbor ] -> [ _Processing:Neighbor UncluedBlock:Neighbor ]
+    late Neighbor [ _Processing:Neighbor no TapaBlank ] -> [ _Processing:Neighbor UncluedBlock:Neighbor ]
     
     ( Clear valid clues )
     late right Position [ _StartBlock _EndBlock ] [ _ProcessingClues Clue:Position:_1:Invalid ] -> [ _StartCluedBlock _EndBlock ] [ _ProcessingClues Clue:Position:_1:Valid ]
@@ -967,6 +969,23 @@ LEVELS
 message Press X when there is no more red in the level.
 
 ##########
+#p.*.#.###
+###....###
+######*..#
+##..*..#.#
+######...#
+#####..###
+##########
+
+###########
+#p.*..#####
+#.##..#...#
+#..##.#.#.#
+#.....*...#
+#..########
+###########
+
+##########
 #####..###
 #.p....###
 #.#.##*..#
@@ -975,6 +994,65 @@ message Press X when there is no more red in the level.
 ###..#####
 ##########
 
+##############
+##...#########
+##.#.#########
+#......#######
+#.#...########
+#........824p#
+##..#.##.#####
+#####....#####
+##############
+
+#########
+##...####
+#..7..###
+#.#.i..##
+#....e.p#
+####...##
+#########
+
+#############
+###p#.......#
+###.##.#.#.##
+###.##.....##
+###1##.#.#.##
+#...#.......#
+#.#1####.####
+#......1.####
+####.#1#.####
+####.....####
+#############
+
+############
+#....#...###
+#.##.#.#.###
+#.55.....###
+#.##.###.###
+#.55.##...##
+#.##.#..x..#
+#p...##...##
+########.###
+############
+
+#########
+#..p#####
+#.#1#####
+#..+#####
+#.#+#...#
+#.+++++.#
+#####...#
+#########
+
+############
+###...######
+###.#.-..2.#
+###.#p.#4#.#
+###..##....#
+####....####
+############
+
+(
 ###############
 #.............#
 #.p.12345678..#
@@ -1006,4 +1084,5 @@ message Press X when there is no more red in the level.
 #.......#
 #.......#
 #########
+)
 
