@@ -959,6 +959,10 @@ startloop
 endloop
 late [ _ProcessedClues ] -> [ ]
 
+( Don't actually check 2x2 and connectivity rules )
+late [ 2x2 ] -> [ ]
+late [ Unreachable ] -> [ ]
+
 ( Mark floor as valid if no rules were violated )
 late [ Background ] -> [ CorrectBackground ]
 late [ CorrectBackground ] [ Invalidator ] -> [ Background ] [ Invalidator ]
@@ -1059,17 +1063,15 @@ message Press X when there is no more red in the level.
 ####....####
 ############
 
-###############
-#.............#
-#.p.12345678..#
-#.............#
-#.*.abcdefghi.#
-#.............#
-#...jklm...n..#
-#.............#
-#....+.X.-....#
-#.............#
-###############
+#########
+##1*2*###
+##*..2###
+##1..*2*#
+##**p..2#
+##3..1.*#
+##*..4*1#
+##1*2*###
+#########
 
 
 (
