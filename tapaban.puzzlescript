@@ -15,6 +15,9 @@ Position = First Second Third Fourth
 Value = _1 _2 _3 _4 _5 _6 _7 _8
 Validity = Valid Invalid
 
+Position1 = Position
+Position2 = Position
+
 Value1 = Value
 Value2 = Value
 
@@ -559,7 +562,7 @@ copy: 2x2TopLeft rot:down:up
 
 UncluedBlock:Neighbor
 transparent
-
+(
 UncluedBlock:_TL
 darkred
 ...............
@@ -619,7 +622,7 @@ copy: UncluedBlock:_T rot:left:down
 UncluedBlock:_B
 darkred
 copy: UncluedBlock:_T rot:down:up
-
+)
 _Incremented:Position
 pink
 
@@ -938,6 +941,10 @@ startloop
     late right Neighbor [ _StartCluedBlock _Source:Neighbor no _EndBlock | ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ | _StartCluedBlock ] [ _Processing:Neighbor ]
     late right Neighbor [ _StartCluedBlock _Source:Neighbor _EndBlock ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ ] [ _Processing:Neighbor ]
 
+	( If there are any invalid clues or neighbors, mark all clues as invalid )
+    late Position1 Value1 [ _ProcessingClues Clue:Position1:Value1:Valid Clue:Position:Value:Invalid ] -> [ _ProcessingClues Clue:Position1:Value1:Invalid Clue:Position:Value:Invalid ]
+    late Position1 Value1 Neighbor [ _ProcessingClues Clue:Position1:Value1:Valid ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ _ProcessingClues Clue:Position1:Value1:Invalid ] [ _Processing:Neighbor UncluedBlock:Neighbor ]
+
 	( Clean up )
     late [ _StartList ] -> [ ]
     late [ _EndList ] -> [ ]
@@ -1051,6 +1058,18 @@ message Press X when there is no more red in the level.
 ###..##....#
 ####....####
 ############
+
+###############
+#.............#
+#.p.12345678..#
+#.............#
+#.*.abcdefghi.#
+#.............#
+#...jklm...n..#
+#.............#
+#....+.X.-....#
+#.............#
+###############
 
 
 (
