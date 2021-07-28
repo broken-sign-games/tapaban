@@ -12,7 +12,7 @@ run_rules_on_level_start
 TAGS
 =====
 Position = First Second Third Fourth
-Value = _1 _2 _3 _4 _5 _6 _7 _8
+Value = _0 _1 _2 _3 _4 _5 _6 _7 _8
 Validity = Valid Invalid
 
 Position1 = Position
@@ -39,10 +39,10 @@ MAPPINGS
 =========
 
 Value => Increment
-_1 _2 _3 _4 _5 _6 _7 _8 -> _2 _3 _4 _5 _6 _7 _8 _8
+_0 _1 _2 _3 _4 _5 _6 _7 _8 -> _1 _2 _3 _4 _5 _6 _7 _8 _8
 
 Value => Decrement
-_1 _2 _3 _4 _5 _6 _7 _8 -> _1 _1 _2 _3 _4 _5 _6 _7
+_0 _1 _2 _3 _4 _5 _6 _7 _8 -> _0 _0 _1 _2 _3 _4 _5 _6 _7
 
 ========
 OBJECTS
@@ -197,9 +197,26 @@ Splitter
 ...............
 ...............
 
-
 Clue:Position:Value:Validity
 transparent
+
+Clue:First:_0:Valid
+pink #bbb #222
+...............
+...............
+..00200........
+..02020........
+..02020........
+..02020........
+..00200........
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
 
 Clue:First:_1:Valid
 #ddd #bbb #222
@@ -363,6 +380,24 @@ copy: Clue:Position:Value:Valid
 
 SingleClue:Value:Validity
 transparent
+
+SingleClue:_0:Valid
+#ddd #bbb #222
+...............
+...............
+..00000000000..
+..00000000000..
+..00002220200..
+..00020002000..
+..00200020200..
+..00200200200..
+..00202000200..
+..00020002000..
+..00202220000..
+..00000000000..
+..00000000000..
+...............
+...............
 
 SingleClue:_1:Valid
 #ddd #bbb #222
@@ -694,6 +729,7 @@ P = Player
 - = DecrementPellet
 X = Splitter
 * = BlankCrate
+0 = ClueCrate and SingleClue:_0:Valid
 1 = ClueCrate and SingleClue:_1:Valid
 2 = ClueCrate and SingleClue:_2:Valid
 3 = ClueCrate and SingleClue:_3:Valid
@@ -778,6 +814,7 @@ _Source:Neighbor
 RULES     
 ======
 
+[ SingleClue:_0:Validity ] -> [ ]
 Value Validity [ SingleClue:Value:Validity ] -> [ Clue:First:Value:Validity ]
 Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
 
@@ -871,13 +908,15 @@ late [ Splitter Clue:Second:Value:Valid ] -> [ Splitter Clue:Second:Value:Valid 
 late Position Value [ Clue:Position:Value:Valid IncrementPellet no _Incremented:Position ] -> [ Clue:Position:Increment:Valid IncrementPellet _Incremented:Position ]
 late [ _Incremented:Position IncrementPellet ] -> [ ]
 late [ _Incremented:Position ] -> [ ]
+late [ ClueCrate no Clue:Position:Value:Valid IncrementPellet ] -> [ ClueCrate Clue:First:_1:Valid ]
 
-( Decrement pellets decrement each clue, dropping 1s )
-late Position [ Clue:Position:_1:Valid DecrementPellet ] -> [ DecrementPellet _Decremented:Position ]
+( Decrement pellets decrement each clue, dropping resulting 0s )
 late Position Value [ Clue:Position:Value:Valid DecrementPellet no _Decremented:Position ] -> [ Clue:Position:Decrement:Valid DecrementPellet _Decremented:Position ]
+late Position [ Clue:Position:_0:Valid DecrementPellet _Decremented:Position ] -> [ DecrementPellet _Decremented:Position ]
 late [ _Decremented:Position DecrementPellet ] -> [ ]
 late [ _Decremented:Position ] -> [ ]
 
+( Collapse remaining clues into the lowest positions )
 late Value1 [ Clue:Second:Value1:Valid no Clue:First:Value:Valid ] -> [ Clue:First:Value1:Valid ]
 + late Value1 [ Clue:Third:Value1:Valid no Clue:Second:Value:Valid ] -> [ Clue:Second:Value1:Valid ]
 + late Value1 [ Clue:Fourth:Value1:Valid no Clue:Third:Value:Valid ] -> [ Clue:Fourth:Value1:Valid ]
@@ -900,8 +939,8 @@ late down [ 2x2TopRight | ] -> [ 2x2TopRight | 2x2BottomRight ]
 ( Validate Tapa clues )
 late [ UncluedBlock:Neighbor ] -> [ ]
 startloop
-	( Pick a random splitter to process and set up list markers )
-	late random [ Clue:First:Value:Valid no _ProcessedClues ] -> [ Clue:First:Value:Valid _ProcessingClues _Temp ]
+	( Pick a random clue crate to process and set up list markers )
+	late random [ ClueCrate no _ProcessedClues ] -> [ ClueCrate _ProcessingClues _Temp ]
     late right [ _Temp ] [ | | | | | | | ] -> [ ] [ _StartList _Black _Source:_TL | _Black  _Source:_T | _Black  _Source:_TR | _Black _Source:_R | _Black _Source:_BR | _Black _Source:_B | _Black _Source:_BL | _Black _Source:_L _EndList ]
     
     ( Mark neighbors )
@@ -944,6 +983,9 @@ startloop
 	( If there are any invalid clues or neighbors, mark all clues as invalid )
     late Position1 Value1 [ _ProcessingClues Clue:Position1:Value1:Valid Clue:Position:Value:Invalid ] -> [ _ProcessingClues Clue:Position1:Value1:Invalid Clue:Position:Value:Invalid ]
     late Position1 Value1 Neighbor [ _ProcessingClues Clue:Position1:Value1:Valid ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ _ProcessingClues Clue:Position1:Value1:Invalid ] [ _Processing:Neighbor UncluedBlock:Neighbor ]
+    
+    ( If there are any unclued neighbors, also mark empty clue crates as invalid )
+    late Neighbor [ _ProcessingClues no Clue:Position:Value:Validity ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ _ProcessingClues Clue:First:_0:Invalid ] [ _Processing:Neighbor UncluedBlock:Neighbor ]
 
 	( Clean up )
     late [ _StartList ] -> [ ]
@@ -956,6 +998,7 @@ startloop
     late [ _Source:Neighbor ] -> [ ]
     late [ _ProcessingClues ] -> [ _ProcessedClues ]
     late [ _Processing:Neighbor ] -> [ ]
+    late [ UncluedBlock:Neighbor ] -> [ ]
 endloop
 late [ _ProcessedClues ] -> [ ]
 
@@ -967,6 +1010,7 @@ late [ Unreachable ] -> [ ]
 late [ Background ] -> [ CorrectBackground ]
 late [ CorrectBackground ] [ Invalidator ] -> [ Background ] [ Invalidator ]
 
+late [ ClueCrate no Clue:First:Value:Validity ] -> [ ClueCrate SingleClue:_0:Valid ]
 late Value1 Validity1 [ Clue:First:Value1:Validity1 no Clue:Second:Value:Validity ] -> [ SingleClue:Value1:Validity1 ]
 
 ==============
@@ -1049,6 +1093,27 @@ message Press X when there is no more red in the level.
 ##1*2*###
 #########
 
+###############
+#.............#
+#.p.012345678.#
+#.............#
+#.*.abcdefghi.#
+#.............#
+#...jklm...n..#
+#.............#
+#....+.X.-....#
+#.............#
+###############
+
+#########
+#.......#
+#.*****.#
+#.*...*.#
+#p*.0.*.#
+#.*...*.#
+#.*****.#
+#.......#
+#########
 
 (
 
