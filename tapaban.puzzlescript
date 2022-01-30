@@ -34,9 +34,26 @@ Neighbor6 = Neighbor
 Neighbor7 = Neighbor
 Neighbor8 = Neighbor
 
+LessThan_1 = _0
+LessThan_2 = _1 LessThan_1
+LessThan_3 = _2 LessThan_2
+LessThan_4 = _3 LessThan_3
+LessThan_5 = _4 LessThan_4
+LessThan_6 = _5 LessThan_5
+LessThan_7 = _6 LessThan_6
+LessThan_8 = _7 LessThan_7
+
+LaterThan_Third = Fourth
+LaterThan_Second = Third LaterThan_Third
+LaterThan_First = Second LaterThan_Second
+
 =========
 MAPPINGS
 =========
+
+( Iterate through positions in reading order )
+Position => NextPosition
+First Second Third Fourth -> Third First Fourth Second
 
 ========
 OBJECTS
@@ -599,19 +616,7 @@ UncluedBlock:_B
 darkred
 copy: UncluedBlock:_T rot:down:up
 )
-_Incremented:Position
-pink
-
-_Decremented:Position
-pink
-
 _Temp
-pink
-
-_ProcessingSplitter
-pink
-
-_ProcessedSplitter
 pink
 
 _ProcessingClues
@@ -657,6 +662,12 @@ _Source:Neighbor
 pink
 
 _StartCluedBlock
+pink
+
+_UnsortedClue:Position:Value
+pink
+
+_SortCursor:Position
 pink
 
 =======
@@ -732,11 +743,8 @@ Player, Wall, Crate
 Position -> Clue:Position:Value:Validity
 SingleClue:Value:Validity
 
-Position -> _Incremented:Position _Decremented:Position
-
 _Temp
 _Above, _Below, _SplitterTarget:Position
-_ProcessingSplitter, _ProcessedSplitter
 _ProcessingClues, _ProcessedClues
 _Processing:Neighbor
 _2x2Candidate
@@ -745,11 +753,17 @@ _TapaValue
 _StartBlock, _StartCluedBlock
 _EndBlock
 _Source:Neighbor
+Position -> _UnsortedClue:Position:Value
+_SortCursor:Position
 
 ======
 RULES     
 ======
 
+( Normalise clues so they're all represented as multiclues:
+  - Remove 0 clues
+  - Represent single clues as multiclues with a single entry
+)
 [ SingleClue:_0:Validity ] -> [ ]
 Value Validity [ SingleClue:Value:Validity ] -> [ Clue:First:Value:Validity ]
 Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
@@ -804,8 +818,14 @@ late Value1 [ Clue:Second:Value1:Valid no Clue:First:Value:Valid ] -> [ Clue:Fir
 + late Value1 [ Clue:Third:Value1:Valid no Clue:Second:Value:Valid ] -> [ Clue:Second:Value1:Valid ]
 + late Value1 [ Clue:Fourth:Value1:Valid no Clue:Third:Value:Valid ] -> [ Clue:Fourth:Value1:Valid ]
 
-( Sort clues )
+( Sort clues via Selection Sort)
+late Value Position [ Clue:Position:Value:Valid ] -> [ Clue:Position:Value:Valid _UnsortedClue:Position:Value _SortCursor:First ]
 
+late Position [ _SortCursor:Position _Temp ] -> [ _SortCursor:NextPosition ]
++ late [ _SortCursor:Position no _UnsortedClue:Position:Value ] -> [ ]
++ late Position [ _SortCursor:Position no Clue:Position:Value:Valid ] -> [ _SortCursor:NextPosition ]
+( Expand by value first so lower values get processed earlier )
++ late Value Position [ _UnsortedClue:Position1:Value _SortCursor:Position no _Temp ] -> [ Clue:Position:Value:Valid _SortCursor:Position _Temp ]
 
 ((( VALIDATION )))
 
@@ -896,6 +916,10 @@ late [ Unreachable ] -> [ ]
 late [ Background ] -> [ CorrectBackground ]
 late [ CorrectBackground ] [ Invalidator ] -> [ Background ] [ Invalidator ]
 
+( Undo clue normalisation:
+  - Display empty clues as zero-clues.
+  - Display single clues with special full-size sprites.
+)
 late [ ClueCrate no Clue:First:Value:Validity ] -> [ ClueCrate SingleClue:_0:Valid ]
 late Value1 Validity1 [ Clue:First:Value1:Validity1 no Clue:Second:Value:Validity ] -> [ SingleClue:Value1:Validity1 ]
 
