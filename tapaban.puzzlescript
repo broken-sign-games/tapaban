@@ -38,12 +38,6 @@ Neighbor8 = Neighbor
 MAPPINGS
 =========
 
-Value => Increment
-_0 _1 _2 _3 _4 _5 _6 _7 _8 -> _1 _2 _3 _4 _5 _6 _7 _8 _8
-
-Value => Decrement
-_0 _1 _2 _3 _4 _5 _6 _7 _8 -> _0 _0 _1 _2 _3 _4 _5 _6 _7
-
 ========
 OBJECTS
 ========
@@ -142,60 +136,6 @@ ClueCrate
 100000000000001
 100000000000001
 111111111111111
-
-IncrementPellet
-#444 #aaa
-...............
-...............
-...............
-.....00000.....
-....0000000....
-...000010000...
-...000010000...
-...001111100...
-...000010000...
-...000010000...
-....0000000....
-.....00000.....
-...............
-...............
-...............
-
-DecrementPellet
-#444 #aaa
-...............
-...............
-...............
-.....00000.....
-....0000000....
-...000000000...
-...000000000...
-...001111100...
-...000000000...
-...000000000...
-....0000000....
-.....00000.....
-...............
-...............
-...............
-
-Splitter
-#444
-...............
-...............
-..0000...0000..
-..00.......00..
-..0.0.....0.0..
-..0..0...0..0..
-...............
-...............
-...............
-..0..0...0..0..
-..0.0.....0.0..
-..00.......00..
-..0000...0000..
-...............
-...............
 
 Clue:Position:Value:Validity
 transparent
@@ -726,9 +666,6 @@ LEGEND
 . = Background
 # = Wall
 P = Player
-+ = IncrementPellet
-- = DecrementPellet
-X = Splitter
 * = BlankCrate
 0 = ClueCrate and SingleClue:_0:Valid
 1 = ClueCrate and SingleClue:_1:Valid
@@ -758,7 +695,6 @@ m = ClueCrate and Clue:First:_1:Valid and Clue:Second:_2:Valid and Clue:Third:_2
 n = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid and Clue:Third:_1:Valid and Clue:Fourth:_1:Valid
 
 Crate = BlankCrate or ClueCrate
-Pellet = IncrementPellet or DecrementPellet
 
 TapaBlank = Crate or Wall
 
@@ -791,7 +727,6 @@ CorrectBackground
 2x2BottomLeft
 2x2BottomRight
 Neighbor -> UncluedBlock:Neighbor
-Pellet, Splitter
 Unreachable
 Player, Wall, Crate
 Position -> Clue:Position:Value:Validity
@@ -818,44 +753,6 @@ RULES
 [ SingleClue:_0:Validity ] -> [ ]
 Value Validity [ SingleClue:Value:Validity ] -> [ Clue:First:Value:Validity ]
 Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
-
-(----- This will only happen on again turns -----)
-
-( Process splitters one by one )
-
-startloop
-	( Pick a random splitter to process )
-	random [ Splitter no _ProcessedSplitter ] [ stationary Player ] -> [ Splitter _ProcessingSplitter ] [ Player ]
-    
-    ( Only process splitter if there are at least two clues on it )
-    [ _ProcessingSplitter no Clue:Second:Value:Valid ] -> [ _ProcessedSplitter ]
-    
-    ( Mark the splitter's target locations )
-    down [ | _ProcessingSplitter | ] -> [ _Above | _ProcessingSplitter | _Below ]
-    right [ | _Above | ] -> [ _SplitterTarget:First | | _SplitterTarget:Third ]
-    right [ | _Below | ] -> [ _SplitterTarget:Fourth | | _SplitterTarget:Second ]
-    
-    ( Don't process the splitter if any of the required target locations are blocked by the player, 
-      a wall, blank crate, or full clue crate. )
-    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position Player ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ Player ]
-    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position Wall ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ Wall ]
-    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position BlankCrate ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ BlankCrate ]
-    Position [ _ProcessingSplitter Clue:Position:Value:Valid ] [ _SplitterTarget:Position Clue:Fourth:Value:Valid ] -> [ _ProcessedSplitter Clue:Position:Value:Valid ] [ Clue:Fourth:Value:Valid ]
-    
-    ( Create new clue crates where necessary )
-    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:First:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position ClueCrate Clue:First:Value1:Valid ]
-    ( Append remaining clues to existing clue crates )
-    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:Second:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position Clue:Second:Value1:Valid ]
-    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:Third:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position Clue:Third:Value1:Valid ]
-    Position Value1 [ _ProcessingSplitter Clue:Position:Value1:Valid ] [ _SplitterTarget:Position no Clue:Fourth:Value:Valid ] -> [ _ProcessingSplitter ] [ _SplitterTarget:Position Clue:Fourth:Value1:Valid ]
-    
-    ( Clean up )
-    [ _SplitterTarget:Position ] -> [ ]
-    [ _ProcessingSplitter ClueCrate ] -> [ _ProcessedSplitter ]
-endloop
-[ _ProcessedSplitter ] -> [ ]
-
-(----- End of again turns ----- )
 
 ( Press X on a valid solution to complete the level )
 [ action Player CorrectBackground ] -> [ Player CorrectBackground ] win
@@ -902,25 +799,13 @@ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Firs
 
 (------------- late rules -------------)
 
-( Trigger another turn to process splitters )
-late [ Splitter Clue:Second:Value:Valid ] -> [ Splitter Clue:Second:Value:Valid ] again
-
-( Increment pellets increment each clue, capped at 8 )
-late Position Value [ Clue:Position:Value:Valid IncrementPellet no _Incremented:Position ] -> [ Clue:Position:Increment:Valid IncrementPellet _Incremented:Position ]
-late [ _Incremented:Position IncrementPellet ] -> [ ]
-late [ _Incremented:Position ] -> [ ]
-late [ ClueCrate no Clue:Position:Value:Valid IncrementPellet ] -> [ ClueCrate Clue:First:_1:Valid ]
-
-( Decrement pellets decrement each clue, dropping resulting 0s )
-late Position Value [ Clue:Position:Value:Valid DecrementPellet no _Decremented:Position ] -> [ Clue:Position:Decrement:Valid DecrementPellet _Decremented:Position ]
-late Position [ Clue:Position:_0:Valid DecrementPellet _Decremented:Position ] -> [ DecrementPellet _Decremented:Position ]
-late [ _Decremented:Position DecrementPellet ] -> [ ]
-late [ _Decremented:Position ] -> [ ]
-
 ( Collapse remaining clues into the lowest positions )
 late Value1 [ Clue:Second:Value1:Valid no Clue:First:Value:Valid ] -> [ Clue:First:Value1:Valid ]
 + late Value1 [ Clue:Third:Value1:Valid no Clue:Second:Value:Valid ] -> [ Clue:Second:Value1:Valid ]
 + late Value1 [ Clue:Fourth:Value1:Valid no Clue:Third:Value:Valid ] -> [ Clue:Fourth:Value1:Valid ]
+
+( Sort clues )
+
 
 ((( VALIDATION )))
 
@@ -1057,33 +942,6 @@ message Press X when there is no more red in the level.
 #......##
 #########
 
-############
-#p...##..###
-#.44.....###
-#.33.###.###
-#....##...##
-######1.x.1#
-#######...##
-########1###
-############
-
-#########
-#..p#####
-#.#1#####
-#..+#####
-#.#+#...#
-#.+++++.#
-#####...#
-#########
-
-############
-###...######
-###.#.-..2.#
-###.#p.#4#.#
-###..##....#
-####....####
-############
-
 #########
 ##1*2*###
 ##*..2###
@@ -1102,7 +960,7 @@ message Press X when there is no more red in the level.
 #.............#
 #...jklm...n..#
 #.............#
-#....+.X.-....#
+#.............#
 #.............#
 ###############
 
