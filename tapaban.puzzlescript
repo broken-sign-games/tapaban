@@ -11,6 +11,12 @@ run_rules_on_level_start
 =====
 TAGS
 =====
+
+U_ = up
+L_ = left
+R_ = right
+D_ = down
+
 Position = First Second Third Fourth
 Value = _0 _1 _2 _3 _4 _5 _6 _7 _8
 Validity = Valid Invalid
@@ -505,6 +511,28 @@ SingleClue:Value:Invalid
 #ddd #bbb red
 copy: SingleClue:Value:Valid
 
+Pipe:right Pipe:left
+#ddd #bbb
+000000000000000
+000000000000000
+000000000000000
+000000000000000
+100000000000001
+110000000000011
+111111111111111
+111111111111111
+111111111111111
+110000000000011
+100000000000001
+000000000000000
+000000000000000
+000000000000000
+000000000000000
+
+Pipe:down Pipe:up
+#ddd #bbb
+copy: Pipe:right rot:right:down
+
 Unreachable
 darkred
 ...............
@@ -676,6 +704,8 @@ LEGEND
 
 . = Background
 # = Wall
+═ = Pipe:right
+║ = Pipe:down
 P = Player
 * = BlankCrate
 0 = ClueCrate and SingleClue:_0:Valid
@@ -739,7 +769,7 @@ CorrectBackground
 2x2BottomRight
 Neighbor -> UncluedBlock:Neighbor
 Unreachable
-Player, Wall, Crate
+Player, Wall, Crate, Pipe:directions
 Position -> Clue:Position:Value:Validity
 SingleClue:Value:Validity
 
@@ -997,6 +1027,16 @@ message Press X when there is no more red in the level.
 #.*****.#
 #.......#
 #########
+
+############
+#p.........#
+#.12345678.#
+#.........##
+#..........#
+#...═....║.#
+#..........#
+#..........#
+############
 
 (
 
