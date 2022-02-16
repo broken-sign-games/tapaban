@@ -533,6 +533,9 @@ Pipe:down Pipe:up
 #ddd #bbb
 copy: Pipe:right rot:right:down
 
+ClueInPipe:Value:directions
+transparent
+
 Unreachable
 darkred
 ...............
@@ -775,6 +778,8 @@ Player, Wall, Crate, Pipe
 Position -> Clue:Position:Value:Validity
 SingleClue:Value:Validity
 
+ClueInPipe:Value:directions
+
 _Temp
 _Above, _Below, _SplitterTarget:Position
 _ProcessingClues, _ProcessedClues
@@ -826,8 +831,15 @@ Value1 Position1 [ > ClueCrate Clue:Position:Value1:Valid | stationary ClueCrate
 
 [ > ClueCrate no Clue:Position:Value:Valid | stationary ClueCrate ] -> [ | ClueCrate ]
 
-( Propagate crate movement to clues )
+( Propagate crate movement to clues. )
 [ > Crate Clue:Position:Value:Valid ] -> [ > Crate > Clue:Position:Value:Valid ]
+
+( If the player is blocked but would push into a pipe, move the
+  first clue of the last crate into the pipe. )
+[ > Player | stationary Crate ] -> [ Player | Crate > _Temp ]
+[ > _Temp | Crate ] -> [ | Crate > _Temp ]
+Value [ Clue:First:Value:Valid > _Temp | Pipe:> ] -> [ | Pipe:> ClueInPipe:Value:> ]
+[ _Temp ] -> [ ]
 
 (------------- late rules -------------)
 
