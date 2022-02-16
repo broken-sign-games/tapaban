@@ -737,6 +737,8 @@ n = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid and Clue:Third:_1
 
 Crate = BlankCrate or ClueCrate
 
+Pipe = Pipe:directions
+
 TapaBlank = Crate or Wall
 
 2x2 = 2x2TopLeft or 2x2TopRight or 2x2BottomLeft or 2x2BottomRight
@@ -769,7 +771,7 @@ CorrectBackground
 2x2BottomRight
 Neighbor -> UncluedBlock:Neighbor
 Unreachable
-Player, Wall, Crate, Pipe:directions
+Player, Wall, Crate, Pipe
 Position -> Clue:Position:Value:Validity
 SingleClue:Value:Validity
 
@@ -805,8 +807,9 @@ Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
 [ > Player | Crate ] -> [ > Player | > Crate ]
 [ > Crate | Crate ] -> [ > Crate | > Crate ]
 
-( Walls block movement. )
+( Walls and pipes block movement. )
 [ > Crate | Wall ] -> [ Crate | Wall ]
+[ > Crate | Pipe ] -> [ Crate | Pipe ]
 
 ( Pushing two crates into a wall attempts to combine the clues. )
 
@@ -819,22 +822,7 @@ Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
 + [ > ClueCrate Clue:First:Value:Valid | stationary ClueCrate Clue:Fourth:Value:Valid ] -> [ ClueCrate Clue:First:Value:Valid | ClueCrate Clue:Fourth:Value:Valid ]
 
 ( Otherwise, merge the two crates. )
-Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:First:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Second:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Third:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:First:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:First:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:Second:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Second:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:Third:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Third:Value1:Valid ]
-+ Value1 [ > ClueCrate Clue:Fourth:Value1:Valid | stationary ClueCrate no Clue:Fourth:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Fourth:Value1:Valid ]
+Value1 Position1 [ > ClueCrate Clue:Position:Value1:Valid | stationary ClueCrate no Clue:Position1:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Position1:Value1:Valid ]
 
 [ > ClueCrate no Clue:Position:Value:Valid | stationary ClueCrate ] -> [ | ClueCrate ]
 
