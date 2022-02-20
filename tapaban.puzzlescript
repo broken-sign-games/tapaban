@@ -128,6 +128,41 @@ Player
 .....00000.....
 ...............
 
+Validator:Invalid
+red
+...............
+...............
+..00.......00..
+..000.....000..
+...000...000...
+....000.000....
+.....00000.....
+......000......
+.....00000.....
+....000.000....
+...000...000...
+..000.....000..
+..00.......00..
+...............
+...............
+
+Validator:Valid
+#006600
+...............
+...............
+...............
+...........00..
+..........000..
+.........000...
+........000....
+..00...000.....
+..000.000......
+...00000.......
+....000........
+.....0.........
+...............
+...............
+...............
 
 BlankCrate 
 #ddd #bbb
@@ -908,6 +943,7 @@ _TapaValue4 = _TapaValue
 _TapaValue5 = _TapaValue
 _TapaValue6 = _TapaValue
 
+Validator = Validator:Valid or Validator:Invalid
 Invalidator = Clue:Position:Value:Invalid or UncluedBlock:Neighbor or ClueInPipe:Value:directions:Frame
 
 =======
@@ -930,6 +966,8 @@ SingleClue:Value:Validity
 
 ClueInPipe:Value:directions:Frame
 
+Validator
+
 _Temp
 _Above, _Below, _SplitterTarget:Position
 _ProcessingClues, _ProcessedClues
@@ -944,8 +982,13 @@ _SortCursor:Position
 _Actuator
 
 ======
-RULES     
+RULES
 ======
+
+( Only really relevant on first turn: put a validator in the top right corner )
+[ no Validator ] -> [ Validator:Invalid ]
+right [ Validator | ] -> [ | ]
+up [ Validator | ] -> [ | ]
 
 ( Normalise clues so they're all represented as multiclues:
   - Remove 0 clues
@@ -1097,6 +1140,10 @@ late [ _ProcessedClues ] -> [ ]
 late [ Background ] -> [ CorrectBackground ]
 late [ CorrectBackground ] [ Invalidator ] -> [ Background ] [ Invalidator ]
 
+( Update validator )
+late [ Validator ] -> [ Validator:Invalid ]
+late [ Validator:Invalid CorrectBackground ] -> [ Validator:Valid CorrectBackground ]
+
 ( Undo clue normalisation:
   - Display empty clues as zero-clues.
   - Display single clues with special full-size sprites.
@@ -1123,11 +1170,10 @@ message Press X when there is no more red in the level.
 
 ##############
 ##...#########
-##.#.#########
-#......#######
-#.#...########
+##.....#######
+###...########
 #........824p#
-##..#.##.#####
+#...#.##.#####
 #####....#####
 ##############
 
