@@ -8,7 +8,7 @@ sprite_size 15x15
 
 run_rules_on_level_start
 
-again_interval 0.05
+again_interval 0.03
 
 =====
 TAGS
@@ -903,6 +903,9 @@ pink
 _SortCursor:Position
 pink
 
+_Actuator
+pink
+
 =======
 LEGEND
 =======
@@ -943,6 +946,8 @@ n = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid and Clue:Third:_1
 Crate = BlankCrate or ClueCrate
 
 Pipe = Pipe:directions
+
+Pushable = Player or Crate
 
 TapaBlank = Crate or Wall or Pipe
 
@@ -995,6 +1000,7 @@ _EndBlock
 _Source:Neighbor
 Position -> _UnsortedClue:Position:Value
 _SortCursor:Position
+_Actuator
 
 ======
 RULES     
@@ -1009,26 +1015,31 @@ Value Validity [ SingleClue:Value:Validity ] -> [ Clue:First:Value:Validity ]
 Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
 
 ( Animate pipes )
-Value [ ClueInPipe:Value:>:_0 ] -> [ > ClueCrate Clue:First:Value:Valid ]
+Value [ ClueInPipe:Value:>:_0 ] -> [ > ClueCrate Clue:First:Value:Valid > _Actuator ]
 Value Frame [ ClueInPipe:Value:>:Frame no _Temp ] -> [ ClueInPipe:Value:>:NextFrame _Temp ] again
 [ _Temp ] -> [ ]
 
 ( Press X on a valid solution to complete the level )
 [ action Player CorrectBackground ] -> [ Player CorrectBackground ] win
 
+( Pipes block player, but can't be on the same layer for reasons... )
+[ > Player | Pipe ] -> [ Player | Pipe ]
+
 ( Player can push multiple crates )
-[ > Player | Crate ] -> [ > Player | > Crate ]
-[ > Crate | Crate ] -> [ > Crate | > Crate ]
+[ > Player ] -> [ > Player > _Actuator ]
+[ > Pushable | Pushable ] -> [ > Pushable | > Pushable ]
 
 ( Walls and pipes block movement. )
-[ > Crate | Wall ] -> [ Crate | Wall ]
-[ > Crate | Pipe ] -> [ Crate | Pipe ]
+[ > Pushable | Wall ] -> [ Pushable | Wall ]
+[ > Pushable | Pipe ] -> [ Pushable | Pipe ]
 
 ( Pushing two crates into a wall attempts to combine the clues. )
 
 ( Check if the clues from both crates can fit on a single crate, otherwise propagate blocking. )
-[ > ClueCrate | stationary BlankCrate ] -> [ ClueCrate | BlankCrate ]
-+ [ > BlankCrate | stationary Crate ] -> [ BlankCrate | Crate ]
+[ > Pushable | stationary BlankCrate ] -> [ Pushable | BlankCrate ]
++ [ > Pushable | stationary Player ] -> [ Pushable | Player ]
++ [ > BlankCrate | stationary ClueCrate ] -> [ BlankCrate | ClueCrate ]
++ [ > Player | stationary ClueCrate ] -> [ Player | ClueCrate ]
 + [ > ClueCrate Clue:Fourth:Value:Valid | stationary ClueCrate Clue:First:Value:Valid ] -> [ ClueCrate Clue:Fourth:Value:Valid | ClueCrate Clue:First:Value:Valid ]
 + [ > ClueCrate Clue:Third:Value:Valid | stationary ClueCrate Clue:Second:Value:Valid ] -> [ ClueCrate Clue:Third:Value:Valid | ClueCrate Clue:Second:Value:Valid ]
 + [ > ClueCrate Clue:Second:Value:Valid | stationary ClueCrate Clue:Third:Value:Valid ] -> [ ClueCrate Clue:Second:Value:Valid | ClueCrate Clue:Third:Value:Valid ]
@@ -1036,26 +1047,33 @@ Value Frame [ ClueInPipe:Value:>:Frame no _Temp ] -> [ ClueInPipe:Value:>:NextFr
 
 ( Otherwise, merge the two crates. )
 Value1 Position1 [ > ClueCrate Clue:Position:Value1:Valid | stationary ClueCrate no Clue:Position1:Value:Valid ] -> [ > ClueCrate | ClueCrate Clue:Position1:Value1:Valid ]
+[ > ClueCrate no Clue:Position:Value:Valid | stationary ClueCrate ] -> [ no _Actuator | ClueCrate ]
 
-[ > ClueCrate no Clue:Position:Value:Valid | stationary ClueCrate ] -> [ | ClueCrate ]
+( If the player is blocked but would push into a pipe, move the
+  first clue of the last crate into the pipe. If this is the only
+  clue in the last crate, let the other crates move after all. )
+[ > _Actuator | stationary Pushable ] -> [ > _Actuator > _Temp | Pushable ]
+[ > _Temp | Pushable ] -> [ > _Temp | Pushable > _Temp ]
+Value [ Clue:First:Value:Valid > _Temp | Pipe:> ] -> [ > _Temp | Pipe:> ClueInPipe:Value:>:_8 ] again
+[ ClueCrate no Clue:Position:Value:Valid > _Temp ] [ Pushable > _Temp ] -> [ ClueCrate > _Temp ] [ > Pushable > _Temp ]
+[ ClueCrate no Clue:Position:Value:Valid ] -> [ ]
+[ _Temp ] -> [ ]
+
+( If there's now a stationary crate that's an actuator, it has been
+  blocked by other crates, and will turn around in the pipe. )
+Value [ > _Actuator stationary ClueCrate Clue:First:Value:Valid ] -> [ ClueInPipe:Value:<:_8 ] again
 
 ( Propagate crate movement to clues. )
 [ > Crate Clue:Position:Value:Valid ] -> [ > Crate > Clue:Position:Value:Valid ]
 
-( If the player is blocked but would push into a pipe, move the
-  first clue of the last crate into the pipe. )
-[ > Player | stationary Crate ] -> [ Player | Crate > _Temp ]
-[ > _Temp | Crate ] -> [ | Crate > _Temp ]
-Value [ Clue:First:Value:Valid > _Temp | Pipe:> ] -> [ | Pipe:> ClueInPipe:Value:>:_8 ] again
-[ ClueCrate no Clue:Position:Value:Valid ] -> [ ]
-[ _Temp ] -> [ ]
+[ _Actuator ] -> [ ]
 
 (------------- late rules -------------)
 
 ( Collapse remaining clues into the lowest positions )
 late Value1 [ Clue:Second:Value1:Valid no Clue:First:Value:Valid ] -> [ Clue:First:Value1:Valid ]
 + late Value1 [ Clue:Third:Value1:Valid no Clue:Second:Value:Valid ] -> [ Clue:Second:Value1:Valid ]
-+ late Value1 [ Clue:Fourth:Value1:Valid no Clue:Third:Value:Valid ] -> [ Clue:Fourth:Value1:Valid ]
++ late Value1 [ Clue:Fourth:Value1:Valid no Clue:Third:Value:Valid ] -> [ Clue:Third:Value1:Valid ]
 
 ( Sort clues via Selection Sort)
 late Value Position [ Clue:Position:Value:Valid ] -> [ Clue:Position:Value:Valid _UnsortedClue:Position:Value _SortCursor:First ]
@@ -1241,10 +1259,10 @@ message Press X when there is no more red in the level.
 #p.........#
 #.12345678.#
 #.........##
-#..........#
+#.*........#
 #...═....║.#
 #..........#
-#..........#
+#........#.#
 ############
 
 ########
@@ -1253,6 +1271,12 @@ message Press X when there is no more red in the level.
 #...#║.#
 #####p.#
 ########
+
+##############
+#............#
+#......═1pn═n#
+#............#
+##############
 
 (
 
