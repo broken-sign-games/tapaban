@@ -738,54 +738,6 @@ ClueInPipe:Value:directions:_0
 #222 #bbb
 copy: ClueInPipe:Value:right:_4 shift:> shift:> shift:> shift:>
 
-Unreachable
-darkred
-...............
-...............
-...............
-...............
-...............
-...............
-......000......
-......000......
-......000......
-...............
-...............
-...............
-...............
-...............
-...............
-
-2x2TopLeft
-darkred
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-...............
-............00.
-............00.
-...............
-
-2x2TopRight
-darkred
-copy: 2x2TopLeft rot:right:down
-
-2x2BottomLeft
-darkred
-copy: 2x2TopLeft rot:down:right
-
-2x2BottomRight
-darkred
-copy: 2x2TopLeft rot:down:up
-
 UncluedBlock:Neighbor
 transparent
 (
@@ -870,9 +822,6 @@ pink
 _SplitterTarget:Position
 pink
 
-_2x2Candidate
-pink
-
 _StartList
 pink
 
@@ -951,8 +900,6 @@ Pushable = Player or Crate
 
 TapaBlank = Crate or Wall or Pipe
 
-2x2 = 2x2TopLeft or 2x2TopRight or 2x2BottomLeft or 2x2BottomRight
-
 _TapaValue = _Black or _White
 _TapaValue1 = _TapaValue
 _TapaValue2 = _TapaValue
@@ -961,7 +908,7 @@ _TapaValue4 = _TapaValue
 _TapaValue5 = _TapaValue
 _TapaValue6 = _TapaValue
 
-Invalidator = Clue:Position:Value:Invalid or UncluedBlock:Neighbor or ClueInPipe:Value:directions:Frame or 2x2 or Unreachable
+Invalidator = Clue:Position:Value:Invalid or UncluedBlock:Neighbor or ClueInPipe:Value:directions:Frame
 
 =======
 SOUNDS
@@ -975,12 +922,7 @@ COLLISIONLAYERS
 
 Background
 CorrectBackground
-2x2TopLeft
-2x2TopRight
-2x2BottomLeft
-2x2BottomRight
 Neighbor -> UncluedBlock:Neighbor
-Unreachable
 Player, Wall, Crate
 Pipe
 Position -> Clue:Position:Value:Validity
@@ -992,7 +934,6 @@ _Temp
 _Above, _Below, _SplitterTarget:Position
 _ProcessingClues, _ProcessedClues
 _Processing:Neighbor
-_2x2Candidate
 _StartList, _EndList
 _TapaValue
 _StartBlock, _StartCluedBlock
@@ -1086,19 +1027,6 @@ late Position [ _SortCursor:Position _Temp ] -> [ _SortCursor:NextPosition ]
 
 ((( VALIDATION )))
 
-( Mark unreachable cells are invalid )
-late [ no TapaBlank no Player ] -> [ Unreachable ]
-late [ no TapaBlank no Unreachable | Unreachable ] -> [ | ]
-
-( Mark 2x2 areas as invalid )
-late [ 2x2 ] -> [ ]
-late right [ no TapaBlank | no TapaBlank ] -> [ _2x2Candidate | ]
-late down [ _2x2Candidate | _2x2Candidate ] -> [ 2x2TopLeft _2x2Candidate | _2x2Candidate ]
-late [ _2x2Candidate ] -> [ ]
-late right [ 2x2TopLeft | ] -> [ 2x2TopLeft | 2x2TopRight ]
-late down [ 2x2TopLeft | ] -> [ 2x2TopLeft | 2x2BottomLeft ]
-late down [ 2x2TopRight | ] -> [ 2x2TopRight | 2x2BottomRight ]
-
 ( Validate Tapa clues )
 late [ UncluedBlock:Neighbor ] -> [ ]
 startloop
@@ -1164,10 +1092,6 @@ startloop
     late [ UncluedBlock:Neighbor ] -> [ ]
 endloop
 late [ _ProcessedClues ] -> [ ]
-
-( Don't actually check 2x2 and connectivity rules )
-late [ 2x2 ] -> [ ]
-late [ Unreachable ] -> [ ]
 
 ( Mark floor as valid if no rules were violated )
 late [ Background ] -> [ CorrectBackground ]
