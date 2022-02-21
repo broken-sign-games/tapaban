@@ -350,15 +350,15 @@ Clue:First:_8:Valid
 
 Clue:Third:Value:Valid
 #ddd #bbb #222
-copy: Clue:First:Value:Valid shift:right shift:right shift:right shift:right shift:right shift:right
+copy: Clue:First:Value:Valid shift:right:6
 
 Clue:Fourth:Value:Valid
 #ddd #bbb #222
-copy: Clue:First:Value:Valid shift:down shift:down shift:down shift:down shift:down shift:down
+copy: Clue:First:Value:Valid shift:down:6
 
 Clue:Second:Value:Valid
 #ddd #bbb #222
-copy: Clue:Third:Value:Valid shift:down shift:down shift:down shift:down shift:down shift:down
+copy: Clue:Third:Value:Valid shift:down:6
 
 Clue:Position:Value:Invalid
 #ddd #bbb red
@@ -742,36 +742,36 @@ copy: ClueInPipe:Value:right:_4
 
 ClueInPipe:Value:directions:_5
 #222 #bbb
-copy: ClueInPipe:Value:right:_4 shift:<
+copy: ClueInPipe:Value:right:_4 shift:<:1
 
 ClueInPipe:Value:directions:_6
 #222 #bbb
-copy: ClueInPipe:Value:right:_4 shift:< shift:<
+copy: ClueInPipe:Value:right:_4 shift:<:2
 
 ClueInPipe:Value:directions:_7
 #222 #bbb
-copy: ClueInPipe:Value:right:_4 shift:< shift:< shift:<
+copy: ClueInPipe:Value:right:_4 shift:<:3
 
 ClueInPipe:Value:directions:_8
 #222 #bbb
-copy: ClueInPipe:Value:right:_4 shift:< shift:< shift:< shift:<
+copy: ClueInPipe:Value:right:_4 shift:<:4
 
 
 ClueInPipe:Value:directions:_3
 #222 #bbb
-copy: ClueInPipe:Value:right:_4 shift:>
+copy: ClueInPipe:Value:right:_4 shift:>:1
 
 ClueInPipe:Value:directions:_2
 #222 #bbb
-copy: ClueInPipe:Value:right:_4 shift:> shift:>
+copy: ClueInPipe:Value:right:_4 shift:>:2
 
 ClueInPipe:Value:directions:_1
 #222 #bbb
-copy: ClueInPipe:Value:right:_4 shift:> shift:> shift:>
+copy: ClueInPipe:Value:right:_4 shift:>:3
 
 ClueInPipe:Value:directions:_0
 #222 #bbb
-copy: ClueInPipe:Value:right:_4 shift:> shift:> shift:> shift:>
+copy: ClueInPipe:Value:right:_4 shift:>:4
 
 UncluedBlock:Neighbor
 transparent
@@ -1232,7 +1232,7 @@ message Press X when there is no more red in the level.
 #.*........#
 #...═....║.#
 #..........#
-#........#.#
+#..........#
 ############
 
 ########
