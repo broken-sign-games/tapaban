@@ -9,6 +9,7 @@ sprite_size 15x15
 run_rules_on_level_start
 
 again_interval 0.03
+key_repeat_interval 0.3
 
 =====
 TAGS
@@ -574,7 +575,7 @@ Pipe:down Pipe:up
 #ddd #bbb
 copy: Pipe:right rot:right:down
 
-ClueInPipe:_0:right:_4
+ClueInPipe:_0:directions:_4
 #222 #bbb
 ...............
 ...............
@@ -592,7 +593,7 @@ ClueInPipe:_0:right:_4
 ...............
 ...............
 
-ClueInPipe:_1:right:_4
+ClueInPipe:_1:directions:_4
 #222 #bbb
 ...............
 ...............
@@ -610,7 +611,7 @@ ClueInPipe:_1:right:_4
 ...............
 ...............
 
-ClueInPipe:_2:right:_4
+ClueInPipe:_2:directions:_4
 #222 #bbb
 ...............
 ...............
@@ -628,7 +629,7 @@ ClueInPipe:_2:right:_4
 ...............
 ...............
 
-ClueInPipe:_3:right:_4
+ClueInPipe:_3:directions:_4
 #222 #bbb
 ...............
 ...............
@@ -646,7 +647,7 @@ ClueInPipe:_3:right:_4
 ...............
 ...............
 
-ClueInPipe:_4:right:_4
+ClueInPipe:_4:directions:_4
 #222 #bbb
 ...............
 ...............
@@ -664,7 +665,7 @@ ClueInPipe:_4:right:_4
 ...............
 ...............
 
-ClueInPipe:_5:right:_4
+ClueInPipe:_5:directions:_4
 #222 #bbb
 ...............
 ...............
@@ -682,7 +683,7 @@ ClueInPipe:_5:right:_4
 ...............
 ...............
 
-ClueInPipe:_6:right:_4
+ClueInPipe:_6:directions:_4
 #222 #bbb
 ...............
 ...............
@@ -700,7 +701,7 @@ ClueInPipe:_6:right:_4
 ...............
 ...............
 
-ClueInPipe:_7:right:_4
+ClueInPipe:_7:directions:_4
 #222 #bbb
 ...............
 ...............
@@ -718,7 +719,7 @@ ClueInPipe:_7:right:_4
 ...............
 ...............
 
-ClueInPipe:_8:right:_4
+ClueInPipe:_8:directions:_4
 #222 #bbb
 ...............
 ...............
@@ -742,7 +743,7 @@ copy: ClueInPipe:Value:right:_4
 
 ClueInPipe:Value:directions:_5
 #222 #bbb
-copy: ClueInPipe:Value:right:_4 shift:<:1
+copy: ClueInPipe:Value:directions:_4 shift:<:1
 
 ClueInPipe:Value:directions:_6
 #222 #bbb
@@ -926,6 +927,8 @@ l = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid and Clue:Third:_3
 m = ClueCrate and Clue:First:_1:Valid and Clue:Second:_2:Valid and Clue:Third:_2:Valid
 
 n = ClueCrate and Clue:First:_1:Valid and Clue:Second:_1:Valid and Clue:Third:_1:Valid and Clue:Fourth:_1:Valid
+
+o = ClueCrate and Clue:First:_3:Valid and Clue:Second:_4:Valid
 
 Crate = BlankCrate or ClueCrate
 
@@ -1159,38 +1162,32 @@ WINCONDITIONS
 LEVELS
 =======
 
-message Press X when there is no more red in the level.
+(
+Level design goals:
+
+- Final position of clues should be unique.
+- Way to get there doesn't have to be unique, but should be "conceptually" unique.
+- Make sure levels are never "just Sokoban" or "just Tapa". I.e. it should be possible
+  to use the Tapa rules to deduce something about the final level state, but the Tapa
+  rules alone shouldn't make the solution unique. The constraints of Sokoban movement
+  can rule out some of the theoretically valid solutions.
+)
+
+message Press X when none of the digits are red.
 
 ############
-#.1#....####
-####.84.####
-#.##.25.#..#
+#.1#...#####
+####.28.####
+#.##.54.#..#
 #.2#p...#3.#
 ############
 
-##############
-##...#########
-##.....#######
-###...########
-#........824p#
-#...#.##.#####
-#####....#####
-##############
-
 #########
-##...p###
-##.7..###
+##...####
+##.7.p###
 ###.i..##
 ###..e.##
 ####...##
-#########
-
-#########
-######.##
-#####.p.#
-######.##
-#.1111.##
-#......##
 #########
 
 #########
@@ -1202,6 +1199,16 @@ message Press X when there is no more red in the level.
 ##*..4*1#
 ##1*2*###
 #########
+
+##########
+##......##
+##.o═...##
+##..#║.###
+#####..###
+######p###
+##########
+
+(
 
 ###############
 #.............#
@@ -1248,48 +1255,5 @@ message Press X when there is no more red in the level.
 #............#
 ##############
 
-(
-
-#########
-##1*2*###
-##*..2###
-##1..*2*#
-##**p..2#
-##3..1.*#
-##*..4*1#
-##1*2*###
-#########
-
-###############
-#.............#
-#.p.12345678..#
-#.............#
-#.*.abcdefghi.#
-#.............#
-#...jklm...n..#
-#.............#
-#....+.X.-....#
-#.............#
-###############
-
-###############
-#..........####
-#.p........####
-#..1.2.3.4.####
-#.............#
-#.........+...#
-#.........+...#
-#..x..---.....#
-#.............#
-#.............#
-###############
-
-#########
-#.......#
-#.....*.#
-#.P.8...#
-#.......#
-#.......#
-#########
 )
 
