@@ -995,8 +995,7 @@ up [ Validator | ] -> [ | ]
 
 ( Normalise clues so they're all represented as multiclues:
   - Remove 0 clues
-  - Represent single clues as multiclues with a single entry
-)
+  - Represent single clues as multiclues with a single entry )
 [ SingleClue:_0:Validity ] -> [ ]
 Value Validity [ SingleClue:Value:Validity ] -> [ Clue:First:Value:Validity ]
 Position Value [ Clue:Position:Value:Invalid ] -> [ Clue:Position:Value:Valid ]
@@ -1207,6 +1206,16 @@ message Press X when none of the digits are red.
 #####..###
 ######p###
 ##########
+
+#####################
+#...................#
+#p....2...1.....1.1.#
+#...4.i.j.*.....║.║.#
+#.1.3.b.h.1.1.h.n.*.#
+#.║.║.║.║.║.║.║.1.j.#
+#...........n.n.║.║.#
+#...........#.#.....#
+#####################
 
 (
 
