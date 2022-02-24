@@ -1063,7 +1063,7 @@ Value1 Position1 [ > ClueCrate Clue:Position:Value1 | stationary ClueCrate no Cl
 [ > _Temp | Pushable ] -> [ > _Temp | Pushable > _Temp ]
 Value [ Clue:First:Value > _Temp | Pipe:> ] -> [ > _Temp | Pipe:> ClueInPipe:Value:>:_8 _ClueInPipe ] again
 [ ClueCrate no Clue:Position:Value > _Temp ] [ Pushable > _Temp ] -> [ ClueCrate > _Temp ] [ > Pushable > _Temp ]
-[ ClueCrate no Clue:Position:Value ] -> [ ]
+[ ClueCrate no Clue:Position:Value _Temp ] -> [ ]
 [ _Temp ] -> [ ]
 
 ( If there's now a stationary crate that's an actuator, it has been
@@ -1198,6 +1198,8 @@ Level design goals:
 
 message Press X when none of the digits are red.
 
+( Single clues )
+
 ############
 #.1#...#####
 ####.28.####
@@ -1206,12 +1208,27 @@ message Press X when none of the digits are red.
 ############
 
 #########
+###....##
+##.0.2..#
+##..##.##
+##.2#p..#
+##....5.#
+###.#...#
+#########
+
+( Blank crates )
+
+( Multi-clues )
+
+#########
 ##...####
 ##.7.p###
 ###.i..##
 ###..e.##
 ####...##
 #########
+
+( Merging clues )
 
 #########
 ##.....##
@@ -1231,6 +1248,8 @@ message Press X when none of the digits are red.
 ##*..4*1#
 ##1*2*###
 #########
+
+( Pipes )
 
 #########
 ##......#
