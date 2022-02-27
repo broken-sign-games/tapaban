@@ -1216,6 +1216,16 @@ message Press X when none of the digits are red.
 ###.#...#
 #########
 
+( The 4-clue is just a hack to prevent a solution where the zero gets merged.
+  It would be much better if the merged solution weren't possible for sokoban reasons instead. )
+#########
+##.#4...#
+##..5.p.#
+##..03.##
+##.#.#.##
+##...####
+#########
+
 ( Blank crates )
 
 ( Multi-clues )
@@ -1230,6 +1240,14 @@ message Press X when none of the digits are red.
 
 ( Merging clues )
 
+( Has an unintended solution where you put two 1 1s with a 7 each in the upper corners,
+  and the other two 7s together further down, or at the corners of the single wall tile
+  at the bottom.
+  
+  Possible fixes: put 1 clues just outside the upper corners. Or carve out some tiles at
+  the top.
+  
+  Other issue: there's otherwise only one valid Tapa configuration. )
 #########
 ##.....##
 ##.171.##
@@ -1247,6 +1265,16 @@ message Press X when none of the digits are red.
 ##3..1.*#
 ##*..4*1#
 ##1*2*###
+#########
+
+( Doesn't have any configurations where the unmerged 0 would fit, which
+  gives away the trick. )
+#########
+##.##..p#
+##..35.##
+##..0..##
+##.#.####
+##...####
 #########
 
 ( Pipes )
