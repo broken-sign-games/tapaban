@@ -21,7 +21,7 @@ R_ = right
 D_ = down
 
 Position = First Second Third Fourth
-Value = _0 _1 _2 _3 _4 _5 _6 _7 _8
+Value = _0 _1 _2 _3 _4 _5 _6 _7 _8 _Q
 Validity = Valid Invalid
 Frame = _8 _7 _6 _5 _4 _3 _2 _1 _0
 
@@ -339,6 +339,24 @@ Clue:First:_8
 ...............
 ...............
 
+Clue:First:_Q
+#ddd #bbb transparent
+...............
+.0000000.......
+.0022000.......
+.0000200.......
+.0002000.......
+.0000000.......
+.0002000.......
+.0000000.......
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+
 Clue:Second:Value
 #ddd #bbb transparent
 copy: Clue:First:Value shift:down:6 shift:right:6
@@ -565,6 +583,24 @@ SingleClue:_8
 .0000000000000.
 ...............
 
+SingleClue:_Q
+#ddd #bbb transparent
+...............
+.0000000000000.
+.0000000000000.
+.0000222220000.
+.0002222222000.
+.0002200022000.
+.0000000222000.
+.0000002220000.
+.0000002200000.
+.0000000000000.
+.0000002200000.
+.0000002200000.
+.0000000000000.
+.0000000000000.
+...............
+
 Pipe:right Pipe:left
 #ddd #bbb
 000000000000000
@@ -749,6 +785,24 @@ ClueInPipe:_8:directions:_4
 ...............
 ...............
 
+ClueInPipe:_Q:directions:_4
+#222 #bbb
+...............
+...............
+...............
+...............
+......111......
+.....10011.....
+....1111011....
+....1110111....
+....1111111....
+.....11011.....
+......111......
+...............
+...............
+...............
+...............
+
 ClueInPipe:Value:directions:_4
 #222 #bbb
 copy: ClueInPipe:Value:right:_4
@@ -897,6 +951,9 @@ pink
 _StartCluedBlock
 pink
 
+_WildCardBlock
+pink
+
 _UnsortedClue:Position:Value
 pink
 
@@ -948,6 +1005,11 @@ m = ClueCrate and Clue:First:_1 and Clue:Second:_2 and Clue:Third:_2
 n = ClueCrate and Clue:First:_1 and Clue:Second:_1 and Clue:Third:_1 and Clue:Fourth:_1
 
 o = ClueCrate and Clue:First:_3 and Clue:Second:_4
+
+q = ClueCrate and Clue:First:_Q
+r = ClueCrate and Clue:First:_Q and Clue:Second:_Q
+s = ClueCrate and Clue:First:_Q and Clue:Second:_Q and Clue:Third:_Q
+t = ClueCrate and Clue:First:_Q and Clue:Second:_Q and Clue:Third:_Q and Clue:Fourth:_Q
 
 Crate = BlankCrate or ClueCrate
 
@@ -1005,6 +1067,7 @@ Position -> _UnsortedClue:Position:Value
 _SortCursor:Position
 _Actuator
 Position -> _InvalidClue:Position
+_WildCardBlock
 
 ======
 RULES
@@ -1137,6 +1200,11 @@ startloop
 	late right Position [ _StartBlock | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_6 _InvalidClue:Position ] -> [ _StartCluedBlock | | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_6 ]
 	late right Position [ _StartBlock | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_7 _InvalidClue:Position ] -> [ _StartCluedBlock | | | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_7 ]
 	late right Position [ _StartBlock | _Black | _Black | _Black | _Black | _Black | _Black |  _EndBlock ] [ _ProcessingClues Clue:Position:_8 _InvalidClue:Position ] -> [ _StartCluedBlock | | | | | | | _EndBlock ] [ _ProcessingClues Clue:Position:_8 ]
+
+	( Process wildcard clues )
+    late right Position [ _StartBlock ] [ _ProcessingClues Clue:Position:_Q _InvalidClue:Position ] -> [ _StartCluedBlock _WildCardBlock ] [ _ProcessingClues Clue:Position:_Q ]
+    late right [ _WildCardBlock | _Black ] -> [ | _WildCardBlock ]
+    late [ _WildCardBlock ] -> [ ]
 
 	( Clear valid neighbors )
     late right Neighbor [ _StartCluedBlock _Source:Neighbor no _EndBlock | ] [ _Processing:Neighbor UncluedBlock:Neighbor ] -> [ | _StartCluedBlock ] [ _Processing:Neighbor ]
@@ -1347,8 +1415,6 @@ message Press X when none of the digits are red.
 #...........#.#.....#
 #####################
 
-(
-
 ###############
 #.............#
 #.p.012345678.#
@@ -1357,9 +1423,11 @@ message Press X when none of the digits are red.
 #.............#
 #...jklm...n..#
 #.............#
-#.............#
+#...qrst......#
 #.............#
 ###############
+
+(
 
 #########
 #.......#
