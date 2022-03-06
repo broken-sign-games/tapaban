@@ -1194,12 +1194,41 @@ Level design goals:
   to use the Tapa rules to deduce something about the final level state, but the Tapa
   rules alone shouldn't make the solution unique. The constraints of Sokoban movement
   can rule out some of the theoretically valid solutions.
+- Every valid Tapa clue should appear in at least one solution:
+
+  ✗ 0
+  ✗ 1
+  ✓ 2
+  ✗ 3
+  ✓ 4
+  ✓ 5
+  ✗ 6
+  ✓ 7
+  ✓ 8
+  ✗ 1 1
+  ✗ 1 2
+  ✗ 1 3
+  ✗ 1 4
+  ✓ 1 5
+  ✗ 2 2
+  ✗ 2 3
+  ✗ 2 4
+  ✓ 3 3
+  ✗ 1 1 1
+  ✗ 1 1 2
+  ✗ 1 1 3
+  ✗ 1 2 2
+  ✓ 1 1 1 1
+
+✗
 )
 
 message Press X when none of the digits are red.
 
 ( Single clues )
 
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
 ############
 #.1#...#####
 ####.28.####
@@ -1207,6 +1236,8 @@ message Press X when none of the digits are red.
 #.2#p...#3.#
 ############
 
+( ✗ Non-unique tapa
+  ✓ Unique tapaban end state )
 #########
 ###....##
 ##.0.2..#
@@ -1230,6 +1261,8 @@ message Press X when none of the digits are red.
 
 ( Multi-clues )
 
+( ✗ Non-unique tapa
+  ✓ Unique tapaban end state )
 #########
 ##...####
 ##.7.p###
@@ -1257,6 +1290,9 @@ message Press X when none of the digits are red.
 ##..#..##
 #########
 
+( Could probably "fix" this by replacing some of the clues with question marks )
+( ✗ Non-unique tapa
+  ✓ Unique tapaban end state )
 #########
 ##1*2*###
 ##*..2###
@@ -1269,6 +1305,8 @@ message Press X when none of the digits are red.
 
 ( Doesn't have any configurations where the unmerged 0 would fit, which
   gives away the trick. )
+( ✗ Non-unique tapa
+  ✓ Unique tapaban end state )
 #########
 ##.##..p#
 ##..35.##
@@ -1279,6 +1317,8 @@ message Press X when none of the digits are red.
 
 ( Pipes )
 
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
 #########
 ##......#
 ##.o═...#
@@ -1287,9 +1327,11 @@ message Press X when none of the digits are red.
 ######p##
 #########
 
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
 #########
-##.....##
-#4.2.*.4#
+##....###
+##.2.*.##
 #..#.6..#
 #..#║##.#
 #...p...#
