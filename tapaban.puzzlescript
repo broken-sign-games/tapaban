@@ -1006,7 +1006,7 @@ n = ClueCrate and Clue:First:_1 and Clue:Second:_1 and Clue:Third:_1 and Clue:Fo
 
 o = ClueCrate and Clue:First:_3 and Clue:Second:_4
 
-q = ClueCrate and Clue:First:_Q
+? = ClueCrate and SingleClue:_Q
 r = ClueCrate and Clue:First:_Q and Clue:Second:_Q
 s = ClueCrate and Clue:First:_Q and Clue:Second:_Q and Clue:Third:_Q
 t = ClueCrate and Clue:First:_Q and Clue:Second:_Q and Clue:Third:_Q and Clue:Fourth:_Q
@@ -1339,6 +1339,23 @@ message Press X when none of the digits are red.
 ####...##
 #########
 
+( Question mark clues )
+
+#########
+#..######
+#.r######
+#.....p.#
+#.s#....#
+#..######
+#########
+
+#########
+###...###
+###.??.##
+###.rs.##
+###p...##
+#########
+
 ( Merging clues )
 
 ( Has an unintended solution where you put two 1 1s with a 7 each in the upper corners,
@@ -1358,9 +1375,20 @@ message Press X when none of the digits are red.
 ##..#..##
 #########
 
-( Could probably "fix" this by replacing some of the clues with question marks )
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
+#########
+##****###
+##?..*###
+##1..***#
+##2*p..*#
+##3..?.*#
+##?..***#
+##****###
+#########
+
+( Original version without question mark clues )
+(
 #########
 ##1*2*###
 ##*..2###
@@ -1370,6 +1398,8 @@ message Press X when none of the digits are red.
 ##*..4*1#
 ##1*2*###
 #########
+)
+
 
 ( Doesn't have any configurations where the unmerged 0 would fit, which
   gives away the trick. )
@@ -1423,7 +1453,7 @@ message Press X when none of the digits are red.
 #.............#
 #...jklm...n..#
 #.............#
-#...qrst......#
+#...?rst......#
 #.............#
 ###############
 
