@@ -1080,9 +1080,11 @@ up [ Validator | ] -> [ | ]
 
 ( Normalise clues so they're all represented as multiclues:
   - Remove 0 clues
-  - Represent single clues as multiclues with a single entry )
+  - Represent single clues as multiclues with a single entry
+  - Remove no-clue covers as they're only visual )
 [ SingleClue:_0 ] -> [ ]
 Value [ SingleClue:Value ] -> [ Clue:First:Value ]
+[ NoClueCover:Position ] -> [ ]
 
 ( Animate pipes )
 Value [ ClueInPipe:Value:>:_0 _ClueInPipe ] -> [ > ClueCrate Clue:First:Value > _Actuator ]
@@ -1155,7 +1157,6 @@ late Position [ _SortCursor:Position _Temp ] -> [ _SortCursor:NextPosition ]
 + late Value Position [ _UnsortedClue:Position1:Value _SortCursor:Position no _Temp ] -> [ Clue:Position:Value _SortCursor:Position _Temp ]
 
 ( Cover unused clue positions )
-late [ NoClueCover:Position ] -> [ ]
 late [ Clue:Second:Value no Clue:Third:Value ] -> [ Clue:Second:Value NoClueCover:Third ]
 late [ Clue:Second:Value no Clue:Fourth:Value ] -> [ Clue:Second:Value NoClueCover:Fourth ]
 
