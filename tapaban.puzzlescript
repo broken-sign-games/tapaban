@@ -1342,14 +1342,18 @@ message Press X when none of the digits are red.
 
 ( Question mark clues )
 
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
 #########
-#..######
-#.r######
-#.....p.#
-#.s#....#
-#..######
+###..####
+#..p.#..#
+#...r.s.#
+####....#
 #########
 
+( ✓ Non-unique tapa
+  ??? Unique tapaban end state 
+  not sure how fun this one actually is, it seems very hard to reason about )
 #########
 ###...###
 ###.??.##
