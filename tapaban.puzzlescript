@@ -1288,7 +1288,10 @@ Level design goals:
   ✗ 1 1 3
   ✗ 1 2 2
   ✓ 1 1 1 1
-
+  ✓ ?
+  ✓ ? ?
+  ✓ ? ? ?
+  
 ✗
 )
 
@@ -1304,6 +1307,20 @@ message Press X when none of the digits are red.
 #.##.54.#..#
 #.2#p...#3.#
 ############
+
+( TODO: a harder single-clue level... possibly with zeros )
+
+( ✓ Non-unique tapa
+  ✗ Unique tapaban end state )
+(
+#########
+##......#
+##..133.#
+##..445.#
+##..p55.#
+####....#
+#########
+)
 
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
@@ -1328,7 +1345,20 @@ message Press X when none of the digits are red.
 
 ( Blank crates )
 
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+##########
+###3..####
+#.....####
+#...1**.##
+#3..#...p#
+##########
+
+( TODO harder level for blank crates )
+
 ( Multi-clues )
+
+( TODO intro level for multi clues )
 
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
@@ -1351,17 +1381,23 @@ message Press X when none of the digits are red.
 ####....#
 #########
 
+( TODO harder level for ? clues )
+
 ( ✓ Non-unique tapa
-  ??? Unique tapaban end state 
-  not sure how fun this one actually is, it seems very hard to reason about )
+  ✗ Unique tapaban end state --> alternate solution when merging the two single-? clues
+  not sure how fun this one actually is anyway, it seems very hard to reason about )
+(
 #########
 ###...###
 ###.??.##
 ###.rs.##
 ###p...##
 #########
+)
 
 ( Merging clues )
+
+( TODO intro level for merging clues )
 
 ( Has an unintended solution where you put two 1 1s with a 7 each in the upper corners,
   and the other two 7s together further down, or at the corners of the single wall tile
