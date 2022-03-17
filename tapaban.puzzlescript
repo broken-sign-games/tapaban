@@ -1358,7 +1358,26 @@ message Press X when none of the digits are red.
 
 ( Multi-clues )
 
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+#############
+###..##...###
+##...k.c.p..#
+##.....##...#
+#########..##
+#..##.#.#..##
+#.g.##m.#####
+###.#..######
+#############
+
 ( TODO intro level for multi clues )
+
+##############
+##..#...##..##
+##g##.cl.##m.#
+#...#.ai.#.#.#
+#####p...#####
+##############
 
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
