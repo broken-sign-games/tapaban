@@ -1308,7 +1308,21 @@ message Press X when none of the digits are red.
 #.2#p...#3.#
 ############
 
-( TODO: a harder single-clue level... possibly with zeros )
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+############
+##......####
+#..p....77.#
+#....##....#
+#######....#
+############
+
+#########
+###...###
+##.7.p.##
+##..7..##
+####...##
+#########
 
 ( ✓ Non-unique tapa
   ✗ Unique tapaban end state )
@@ -1369,15 +1383,6 @@ message Press X when none of the digits are red.
 #.g.##m.#####
 ###.#..######
 #############
-
-( TODO intro level for multi clues )
-
-##############
-##..#...##..##
-##g##.cl.##m.#
-#...#.ai.#.#.#
-#####p...#####
-##############
 
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
