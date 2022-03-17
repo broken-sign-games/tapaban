@@ -1317,6 +1317,7 @@ message Press X when none of the digits are red.
 #######....#
 ############
 
+(
 ( non-unique end state )
 #########
 ###...###
@@ -1351,6 +1352,7 @@ message Press X when none of the digits are red.
 ###...###
 ###..####
 #########
+)
 
 ( ✓ Non-unique tapa
   ✗ Unique tapaban end state )
@@ -1377,13 +1379,13 @@ message Press X when none of the digits are red.
 
 ( The 4-clue is just a hack to prevent a solution where the zero gets merged.
   It would be much better if the merged solution weren't possible for sokoban reasons instead. )
-#########
+(#########
 ##.#4...#
 ##..5.p.#
 ##..03.##
 ##.#.#.##
 ##...####
-#########
+#########)
 
 ( Blank crates )
 
@@ -1441,7 +1443,16 @@ message Press X when none of the digits are red.
 ####....#
 #########
 
-( TODO harder level for ? clues )
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+#########
+#...#####
+#.#.#...#
+#.#.#.#.#
+#..3.?..#
+###.#.###
+###.p.###
+#########
 
 ( ✓ Non-unique tapa
   ✗ Unique tapaban end state --> alternate solution when merging the two single-? clues
@@ -1475,14 +1486,14 @@ message Press X when none of the digits are red.
   the top.
   
   Other issue: there's otherwise only one valid Tapa configuration. )
-#########
+(#########
 ##.....##
 ##.171.##
 ##.7.7.##
 ##.171.##
 ##..p..##
 ##..#..##
-#########
+#########)
 
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
@@ -1514,13 +1525,13 @@ message Press X when none of the digits are red.
   gives away the trick. )
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
-#########
+(#########
 ##.##..p#
 ##..35.##
 ##..0..##
 ##.#.####
 ##...####
-#########
+#########)
 
 ( Pipes )
 
@@ -1544,6 +1555,8 @@ message Press X when none of the digits are red.
 #...p...#
 #########
 
+(
+
 #####################
 #...................#
 #p....2...1.....1.1.#
@@ -1565,8 +1578,6 @@ message Press X when none of the digits are red.
 #...?rst......#
 #.............#
 ###############
-
-(
 
 #########
 #.......#
