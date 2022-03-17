@@ -1421,7 +1421,15 @@ message Press X when none of the digits are red.
 
 ( Merging clues )
 
-( TODO intro level for merging clues )
+( ✗ Non-unique tapa
+  ✓ Unique tapaban end state )
+###########
+#...###...#
+#...###...#
+#...1p1...#
+#...###...#
+#...###...#
+###########
 
 ( Has an unintended solution where you put two 1 1s with a 7 each in the upper corners,
   and the other two 7s together further down, or at the corners of the single wall tile
