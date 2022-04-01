@@ -752,8 +752,8 @@ h = ClueCrate and Clue:First:_2 and Clue:Second:_4
 i = ClueCrate and Clue:First:_3 and Clue:Second:_3
 
 j = ClueCrate and Clue:First:_1 and Clue:Second:_1 and Clue:Third:_1
-k = ClueCrate and Clue:First:_1 and Clue:Second:_1 and Clue:Third:_2
-l = ClueCrate and Clue:First:_1 and Clue:Second:_1 and Clue:Third:_3
+k = ClueCrate and Clue:First:_1 and Clue:Second:_2 and Clue:Third:_1
+l = ClueCrate and Clue:First:_1 and Clue:Second:_3 and Clue:Third:_1
 m = ClueCrate and Clue:First:_1 and Clue:Second:_2 and Clue:Third:_2
 
 n = ClueCrate and Clue:First:_1 and Clue:Second:_1 and Clue:Third:_1 and Clue:Fourth:_1
@@ -1023,10 +1023,12 @@ message Press X when none of the digits are red.
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 ##############
-#p.2...####..#
-#.###3####...#
-#1###...4....#
+#####.########
+#p.3...####..#
+#1###2####...#
+#.##....4....#
 #.###...#..###
+#####.########
 ##############
 
 ( ✓ Non-unique tapa
@@ -1140,19 +1142,16 @@ message Press X when none of the digits are red.
 
 ( Multi-clues )
 
-( TODO, replace this level as it's basically identical to the ?-clue intor )
-
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
-#############
-###..##...###
-##...k.c.p..#
-##.....##...#
-#########..##
-#..##.#.#..##
-#.g.##m.#####
-###.#..######
-#############
+##############
+#####.########
+#p.a...####..#
+#a###2####...#
+#.##....j....#
+#.###...#..###
+#####.########
+##############
 
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
