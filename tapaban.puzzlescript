@@ -1237,7 +1237,18 @@ message Press X when none of the digits are red.
 ##..#..##
 #########)
 
-( Introduce unmergeability of 2- and 3-clues)
+( Introduce maximum clue count of 4 )
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+###############
+######.....####
+#####..111.#.##
+#1......p.....#
+#####..111.#.##
+######.....####
+###############
+
+( Introduce unmergeability of 2- and 3-clues )
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state, probably )
 ###############
