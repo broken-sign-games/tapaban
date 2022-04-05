@@ -1173,41 +1173,6 @@ message Press X when none of the digits are red.
 #...#######
 ###########
 
-( Question mark clues )
-
-( ✓ Non-unique tapa
-  ✓ Unique tapaban end state )
-#########
-###..####
-#..p.#..#
-#...r.s.#
-####....#
-#########
-
-( TODO make this puzzle harder )
-( ✓ Non-unique tapa
-  ✓ Unique tapaban end state )
-#########
-#...#####
-#.#.#...#
-#.#.#.#.#
-#..3.?..#
-###.#.###
-###.p.###
-#########
-
-( ✓ Non-unique tapa
-  ✗ Unique tapaban end state --> alternate solution when merging the two single-? clues
-  not sure how fun this one actually is anyway, it seems very hard to reason about )
-(
-#########
-###...###
-###.??.##
-###.rs.##
-###p...##
-#########
-)
-
 ( Merging clues )
 
 ( ✗ Non-unique tapa
@@ -1236,6 +1201,20 @@ message Press X when none of the digits are red.
 ##..p..##
 ##..#..##
 #########)
+
+( Introduce unmergeability of blank crates )
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+##########
+##1##...##
+###....p.#
+###..##..#
+##..2*2..#
+#3..##..##
+##......##
+##....##1#
+####3#####
+##########
 
 ( Introduce maximum clue count of 4 )
 ( ✓ Non-unique tapa
@@ -1295,6 +1274,43 @@ message Press X when none of the digits are red.
 ##p......#
 ###3###3##
 ##########
+
+( Question mark clues )
+
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+#########
+###..####
+#..p.#..#
+#...r.s.#
+####....#
+#########
+
+( TODO make this puzzle harder )
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+#########
+#...#####
+#.#.#...#
+#.#.#.#.#
+#..3.?..#
+###.#.###
+###.p.###
+#########
+
+( ✓ Non-unique tapa
+  ✗ Unique tapaban end state --> alternate solution when merging the two single-? clues
+  not sure how fun this one actually is anyway, it seems very hard to reason about )
+(
+#########
+###...###
+###.??.##
+###.rs.##
+###p...##
+#########
+)
+
+( Finale )
 
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
