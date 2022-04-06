@@ -1031,14 +1031,14 @@ message Press X when none of the digits are red.
 #####.########
 ##############
 
-( ✓ Non-unique tapa
+( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
-############
-##......####
-#..p....77.#
-#....##....#
-#######....#
-############
+#########
+####...##
+##..7..##
+##.p.7###
+##.....##
+#########
 
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
@@ -1048,55 +1048,6 @@ message Press X when none of the digits are red.
 ###.54.###
 ###p...###
 ##########
-
-(
-( non-unique end state )
-#########
-###...###
-##.7.p.##
-##..7..##
-####...##
-#########
-
-( unique tapa )
-#########
-##...####
-##..7####
-##.p...##
-##...7.##
-##..#..##
-#########
-
-( non-unique end state )
-#########
-#####...#
-##...7p.#
-##...77.#
-##.#...##
-####..###
-#########
-
-( non-unique end state )
-#########
-####....#
-##..7.p.#
-##..77..#
-###...###
-###..####
-#########
-)
-
-( ✓ Non-unique tapa
-  ✗ Unique tapaban end state )
-(
-#########
-##......#
-##..133.#
-##..445.#
-##..p55.#
-####....#
-#########
-)
 
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
@@ -1111,7 +1062,7 @@ message Press X when none of the digits are red.
 
 ( The 4-clue is just a hack to prevent a solution where the zero gets merged.
   It would be much better if the merged solution weren't possible for sokoban reasons instead. )
-(#########
+(#######
 ##.#4...#
 ##..5.p.#
 ##..03.##
