@@ -1263,6 +1263,27 @@ message Press X when none of the digits are red.
 
 ( Finale )
 
+( Has two symmetric solutions... don't see a way to prevent either via sokoban alone)
+(
+#########
+###....##
+##.ei..##
+##.si.###
+##...p.##
+##..#..##
+#########
+)
+
+( Maybe too easy, actual solution is very short. )
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+#########
+####...##
+###.p33##
+###.1..##
+###.1..##
+#########
+
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
 #########
