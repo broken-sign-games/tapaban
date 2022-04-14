@@ -1040,36 +1040,6 @@ message Press X when none of the digits are red.
 ##.....##
 #########
 
-( ✓ Non-unique tapa
-  ✓ Unique tapaban end state )
-##########
-###...####
-###.28.###
-###.54.###
-###p...###
-##########
-
-( ✗ Non-unique tapa
-  ✓ Unique tapaban end state )
-#########
-###....##
-##.0.2..#
-##..##.##
-##.2#p..#
-##....5.#
-###.#...#
-#########
-
-( The 4-clue is just a hack to prevent a solution where the zero gets merged.
-  It would be much better if the merged solution weren't possible for sokoban reasons instead. )
-(#######
-##.#4...#
-##..5.p.#
-##..03.##
-##.#.#.##
-##...####
-#########)
-
 ( Blank crates )
 
 ( ✓ Non-unique tapa
@@ -1249,19 +1219,16 @@ message Press X when none of the digits are red.
 ###.p.###
 #########
 
-( ✓ Non-unique tapa
-  ✗ Unique tapaban end state --> alternate solution when merging the two single-? clues
-  not sure how fun this one actually is anyway, it seems very hard to reason about )
-(
-#########
-###...###
-###.??.##
-###.rs.##
-###p...##
-#########
-)
-
 ( Finale )
+
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+##########
+###...####
+###.28.###
+###.54.###
+###p...###
+##########
 
 ( Has two symmetric solutions... don't see a way to prevent either via sokoban alone)
 (
@@ -1296,6 +1263,19 @@ message Press X when none of the digits are red.
 ##****###
 #########
 
+( Original version without question mark clues )
+(
+#########
+##1*2*###
+##*..2###
+##1..*2*#
+##**p..2#
+##3..1.*#
+##*..4*1#
+##1*2*###
+#########
+)
+
 ( Final level! )
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state ... probably )
@@ -1311,32 +1291,6 @@ message Press X when none of the digits are red.
 ###...#...##..##..#
 ###.#.#...##..##..#
 ###################
-
-( Original version without question mark clues )
-(
-#########
-##1*2*###
-##*..2###
-##1..*2*#
-##**p..2#
-##3..1.*#
-##*..4*1#
-##1*2*###
-#########
-)
-
-
-( Doesn't have any configurations where the unmerged 0 would fit, which
-  gives away the trick. )
-( ✗ Non-unique tapa
-  ✓ Unique tapaban end state )
-(#########
-##.##..p#
-##..35.##
-##..0..##
-##.#.####
-##...####
-#########)
 
 (
 
