@@ -986,7 +986,6 @@ Level design goals:
   can rule out some of the theoretically valid solutions.
 - Every valid Tapa clue should appear in at least one solution:
 
-  ✗ 0
   ✗ 1
   ✓ 2
   ✗ 3
@@ -1020,6 +1019,7 @@ message Press X when none of the digits are red.
 
 ( Single clues )
 
+message Level 1
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 ##############
@@ -1031,6 +1031,7 @@ message Press X when none of the digits are red.
 #####.########
 ##############
 
+message Level 2
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
 #########
@@ -1040,8 +1041,12 @@ message Press X when none of the digits are red.
 ##.....##
 #########
 
+message Level 3
+(TODO)
+
 ( Blank crates )
 
+message Level 4
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 ###########
@@ -1052,6 +1057,7 @@ message Press X when none of the digits are red.
 #.....#111#
 ###########
 
+message Level 5
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 ##########
@@ -1063,6 +1069,7 @@ message Press X when none of the digits are red.
 
 ( Multi-clues )
 
+message Level 6
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 ##############
@@ -1074,6 +1081,7 @@ message Press X when none of the digits are red.
 #####.########
 ##############
 
+message Level 7
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
 #########
@@ -1084,6 +1092,7 @@ message Press X when none of the digits are red.
 ####...##
 #########
 
+message Level 8
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 ###########
@@ -1096,6 +1105,7 @@ message Press X when none of the digits are red.
 
 ( Merging clues )
 
+message Level 1 1
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
 ###########
@@ -1123,6 +1133,7 @@ message Press X when none of the digits are red.
 ##..#..##
 #########)
 
+message Level 1 2
 ( Introduce unmergeability of blank crates )
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
@@ -1137,6 +1148,7 @@ message Press X when none of the digits are red.
 ####3#####
 ##########
 
+message Level 1 3
 ( Introduce maximum clue count of 4 )
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
@@ -1148,6 +1160,7 @@ message Press X when none of the digits are red.
 ######.....####
 ###############
 
+message Level 1 4
 ( Introduce unmergeability of 2- and 3-clues )
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state, probably )
@@ -1183,6 +1196,7 @@ message Press X when none of the digits are red.
 ###########
 )
 
+message Level 1 5
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 ##########
@@ -1198,6 +1212,7 @@ message Press X when none of the digits are red.
 
 ( Question mark clues )
 
+message Level 2 2
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 #########
@@ -1207,28 +1222,45 @@ message Press X when none of the digits are red.
 ####....#
 #########
 
-( TODO make this puzzle harder )
+message Level 2 3
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 #########
 #...#####
 #.#.#...#
-#.#.#.#.#
-#..3.?..#
-###.#.###
-###.p.###
+#.#p#.#.#
+#...?...#
+###.#3###
+###...###
 #########
 
-( Finale )
 
-( ✓ Non-unique tapa
-  ✓ Unique tapaban end state )
-##########
-###...####
-###.28.###
-###.54.###
-###p...###
-##########
+#########
+#...#####
+#.#.#..p#
+#.#.#.#.#
+#....3?.#
+###.#.###
+###...###
+#########
+
+
+#########
+#...#.p.#
+#.#.#.#.#
+#.#.#.#.#
+#...3.?.#
+#.#.#####
+#...#####
+#########
+
+message Level 2 4
+(TODO)
+
+message Level 3 3
+(TODO)
+
+( Finale )
 
 ( Has two symmetric solutions... don't see a way to prevent either via sokoban alone)
 (
@@ -1241,6 +1273,8 @@ message Press X when none of the digits are red.
 #########
 )
 
+message Level 1 1 1
+( TODO: Probably replace )
 ( Maybe too easy, actual solution is very short. )
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
@@ -1251,6 +1285,7 @@ message Press X when none of the digits are red.
 ###.1..##
 #########
 
+message Level 1 1 2
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
 #########
@@ -1276,6 +1311,20 @@ message Press X when none of the digits are red.
 #########
 )
 
+message Level 1 1 3
+(TODO)
+
+message Level 1 2 2
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+##########
+###...####
+###.28.###
+###.54.###
+###p...###
+##########
+
+message Level 1 1 1 1
 ( Final level! )
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state ... probably )
@@ -1291,6 +1340,8 @@ message Press X when none of the digits are red.
 ###...#...##..##..#
 ###.#.#...##..##..#
 ###################
+
+message Thank you for playing!
 
 (
 
