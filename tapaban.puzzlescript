@@ -1226,6 +1226,17 @@ message Level 2 3
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 #########
+#...#.p.#
+#.#.#.#.#
+#.#.#.#.#
+#...3.?.#
+#.#.#####
+#...#####
+#########
+
+(
+
+#########
 #...#####
 #.#.#...#
 #.#p#.#.#
@@ -1244,18 +1255,18 @@ message Level 2 3
 ###...###
 #########
 
-
-#########
-#...#.p.#
-#.#.#.#.#
-#.#.#.#.#
-#...3.?.#
-#.#.#####
-#...#####
-#########
+)
 
 message Level 2 4
-(TODO)
+( Merge question mark and regular clue )
+( ✗ Non-unique tapa
+  ✓ Unique tapaban end state )
+#########
+##...#.##
+##p..?..#
+###..1..#
+#####..##
+#########
 
 message Level 3 3
 (TODO)

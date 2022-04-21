@@ -1,0 +1,39 @@
+Single clues
+
+    intro
+    77
+    [???]
+
+Blank crates
+
+    intro
+    follow-up
+
+Multi-clues
+
+    intro
+    7 33 15
+    tricky 1s and 3s
+
+Merging clues
+
+    intro
+    can't merge blank crates
+    max 4 clues
+    122 + 111 (can't merge 2- and 3-clue)
+    all the 1s
+
+Question marks
+
+    intro
+    3 + ? maze
+    [merge ? and non-?]
+    [? and blanks only]
+
+Finale
+
+    [???]
+    microban 1
+    [???]
+    original 2x2 level
+    gallery
