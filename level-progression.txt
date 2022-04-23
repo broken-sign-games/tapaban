@@ -27,8 +27,8 @@ Question marks
 
     intro
     3 + ? maze
-    [merge ? and non-?]
-    [? and blanks only]
+    merge ? and non-?
+    ? and blanks only
 
 Finale
 
