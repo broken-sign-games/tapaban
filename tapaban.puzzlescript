@@ -1328,22 +1328,42 @@ message Level 1 1 1
 )
 
 message Level 1 1 2
-( TODO: Probably replace )
-( Maybe too easy, actual solution is very short. )
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 ##########
-###..#####
-###..##..#
-##.*1.#..#
-#p.**....#
-##.*5.#..#
-###..##..#
-###..#####
+####2#####
+#2#..#3###
+#..*.*...#
+#..5.1...#
+#2#..#3###
+####p#####
 ##########
 
+( Back up in case of cheese... )
+(
+##########
+####2#####
+#2#..#3###
+#..*.*...#
+#..5.1...#
+#2#..#3###
+##r#p#####
+###.######
+##########
+)
 message Level 1 1 3
 (TODO)
+( Don't see how I could make something like this unique )
+(
+###########
+#****#****#
+#*..*#*..*#
+#*..***..*#
+#*.1.1.1.*#
+#**..p..**#
+##*******##
+###########
+)
 
 message Level 1 2 2
 ( ✓ Non-unique tapa
