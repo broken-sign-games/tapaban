@@ -1006,7 +1006,7 @@ Level design goals:
   ✓ 1 1 1
   ✓ 1 1 2
   ✓ 1 1 3
-  ✗ 1 2 2
+  ✓ 1 2 2
   ✓ 1 1 1 1
   ✓ ?
   ✓ ? ?
@@ -1124,23 +1124,6 @@ message Level 1 1
 #...###...#
 #...###...#
 ###########
-
-( Has an unintended solution where you put two 1 1s with a 7 each in the upper corners,
-  and the other two 7s together further down, or at the corners of the single wall tile
-  at the bottom.
-  
-  Possible fixes: put 1 clues just outside the upper corners. Or carve out some tiles at
-  the top.
-  
-  Other issue: there's otherwise only one valid Tapa configuration. )
-(#########
-##.....##
-##.171.##
-##.7.7.##
-##.171.##
-##..p..##
-##..#..##
-#########)
 
 message Level 1 2
 ( Introduce unmergeability of blank crates )
@@ -1290,16 +1273,6 @@ message Level 3 3
 
 ( Finale )
 
-( Has two symmetric solutions... don't see a way to prevent either via sokoban alone)
-(
-#########
-###....##
-##.ei..##
-##.si.###
-##...p.##
-##..#..##
-#########
-)
 
 message Level 1 1 1
 ( ✗ Non-unique tapa
@@ -1352,20 +1325,6 @@ message Level 1 1 2
 ##########
 )
 message Level 1 1 3
-(TODO)
-( Don't see how I could make something like this unique )
-(
-###########
-#****#****#
-#*..*#*..*#
-#*..***..*#
-#*.1.1.1.*#
-#**..p..**#
-##*******##
-###########
-)
-
-message Level 1 2 2
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 ##########
@@ -1373,6 +1332,17 @@ message Level 1 2 2
 ###.28.###
 ###.54.###
 ###p...###
+##########
+
+message Level 1 2 2
+( ✗ Non-unique tapa
+  ✓ Unique tapaban end state )
+##########
+#####..p##
+###...7.##
+###.6m..##
+###..7.###
+#####..###
 ##########
 
 message Level 1 1 1 1
@@ -1420,3 +1390,41 @@ message Thank you for playing!
 
 )
 
+( Don't see how I could make something like this unique )
+(
+##########
+#***#****#
+#*.*#*..*#
+#*.***..*#
+#*..66..*#
+#**.p..**#
+##******##
+##########
+)
+( Has two symmetric solutions... don't see a way to prevent either via sokoban alone)
+(
+#########
+###....##
+##.ei..##
+##.si.###
+##...p.##
+##..#..##
+#########
+)
+
+( Has an unintended solution where you put two 1 1s with a 7 each in the upper corners,
+  and the other two 7s together further down, or at the corners of the single wall tile
+  at the bottom.
+  
+  Possible fixes: put 1 clues just outside the upper corners. Or carve out some tiles at
+  the top.
+  
+  Other issue: there's otherwise only one valid Tapa configuration. )
+(#########
+##.....##
+##.171.##
+##.7.7.##
+##.171.##
+##..p..##
+##..#..##
+#########)
