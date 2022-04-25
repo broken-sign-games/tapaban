@@ -1335,8 +1335,8 @@ message Level 1 1 3
 ##########
 
 message Level 1 2 2
-( ✗ Non-unique tapa
-  ✓ Unique tapaban end state )
+( ✓ Non-unique tapa
+  ✗ Unique tapaban end state, 7 and ? can be swapped but they're equivalent )
 ##########
 #####..p##
 ###...7.##
