@@ -1020,26 +1020,26 @@ message Press X when none of the digits are red.
 ( Single clues )
 
 message Level 1
-( ✓ Non-unique tapa
-  ✓ Unique tapaban end state )
-##############
-#####.########
-#p.3...####..#
-#1###2####...#
-#.##....4....#
-#.###...#..###
-#####.########
-##############
-
-message Level 2
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
-#########
-####...##
-##..7..##
-##.p.7###
-##.....##
-#########
+#############
+#.1###...####
+####..7..####
+#.##.p.7##..#
+#.2#.....#3.#
+#############
+
+message Level 2
+( ✓ Non-unique tapa
+  ✓ Unique tapaban end state )
+#############
+######3######
+#####...#...#
+#.....5.....#
+#.#.######..#
+#.#3#####p..#
+#...#########
+#############
 
 message Level 3
 ( ✗ Non-unique tapa, though you could fit three 5s around the single wall
@@ -1079,16 +1079,14 @@ message Level 5
 ( Multi-clues )
 
 message Level 6
-( ✓ Non-unique tapa
+( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
-##############
-#####.########
-#p.a...####..#
-#a###2####...#
-#.##....j....#
-#.###...#..###
-#####.########
-##############
+#############
+######...####
+#..#..h..#..#
+#g##.p.c###k.
+...#.....#.##
+#############
 
 message Level 7
 ( ✗ Non-unique tapa
