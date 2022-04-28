@@ -1022,14 +1022,24 @@ message Press X when none of the digits are red.
 message Level 1
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
-#############
-#.1###...####
-####..7..####
-#.##.p.7##..#
-#.2#.....#3.#
-#############
+###########
+..1#...p###
+.###...##..
+.##..4##..#
+.2#...##3.#
+###########
 
 message Level 2
+( ✗ Non-unique tapa
+  ✓ Unique tapaban end state )
+#########
+####...##
+##..7..##
+##.p.7###
+##.....##
+#########
+
+message Level 3
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
 #############
@@ -1040,18 +1050,6 @@ message Level 2
 #.#3#####p..#
 #...#########
 #############
-
-message Level 3
-( ✗ Non-unique tapa, though you could fit three 5s around the single wall
-  ✓ Unique tapaban end state )
-#########
-####..###
-####..###
-##p.55..#
-##..55..#
-####..#.#
-####....#
-#########
 
 ( Blank crates )
 
@@ -1082,10 +1080,10 @@ message Level 6
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
 #############
-######...####
-#..#..h..#..#
-#g##.p.c###k.
-...#.....#.##
+#a..#...p####
+#.###c..##..#
+#b##...##.g##
+#..#...##..##
 #############
 
 message Level 7
