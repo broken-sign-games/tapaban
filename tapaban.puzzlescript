@@ -119,42 +119,6 @@ Player
 .....00000.....
 ...............
 
-Validator:Invalid
-#ac2e47
-...............
-...............
-..00.......00..
-..000.....000..
-...000...000...
-....000.000....
-.....00000.....
-......000......
-.....00000.....
-....000.000....
-...000...000...
-..000.....000..
-..00.......00..
-...............
-...............
-
-Validator:Valid
-#448c41
-...............
-...............
-...............
-...........00..
-..........000..
-.........000...
-........000....
-..00...000.....
-..000.000......
-...00000.......
-....000........
-.....0.........
-...............
-...............
-...............
-
 BlankCrate 
 #ddd #bbb
 111111111111111
@@ -766,13 +730,13 @@ InstructionsContiguous
 ...0002222222222200000000000000000000000001..
 ...0003333333333300000000000000000000000001..
 ...0003344444443300000000000000000000000001..
-...0003444444444300000000000005500055000001..
-...0003444554444300000000000005550555000001..
-...0003444445444300000000000000555550000001..
-...0003444454444300000000000000055500000001..
-...0003444445444300000000000000555550000001..
-...0003444554444300000000000005550555000001..
-...0003444444444300000000000005500055000001..
+...0003444444444300000000000000550005500001..
+...0003444554444300000000000000555055500001..
+...0003444445444300000000000000055555000001..
+...0003444454444300000000000000005550000001..
+...0003444445444300000000000000055555000001..
+...0003444554444300000000000000555055500001..
+...0003444444444300000000000000550005500001..
 ...0003344444443300000000000000000000000001..
 ...0003333333333300000000000000000000000001..
 ...0002222222222222222222222000000000000001..
@@ -821,7 +785,7 @@ InstructionsContiguous
 .............................................
 .............................................
 .............................................
-translate:left:30
+translate:left:30 translate:up:8
 
 InstructionsMultiClue
 #eeeeee #111111 #bbbbbb #222222 #dddddd #ac2e47 #777777 #448c41 
@@ -834,13 +798,13 @@ InstructionsMultiClue
 ...0000000000000000000000000000000000000001..
 ...0002222222222233333333333000000000000001..
 ...0002244444442231111111113000000000000001..
-...0002445444444231111111113005500055000001..
-...0002455444444231111111113005550555000001..
-...0002445445544231111111113000555550000001..
-...0002445444454231111111113000055500000001..
-...0002455544544231111111113000555550000001..
-...0002444445444231111111113005550555000001..
-...0002444445554231111111113005500055000001..
+...0002445444444231111111113000550005500001..
+...0002455444444231111111113000555055500001..
+...0002445445544231111111113000055555000001..
+...0002445444454231111111113000005550000001..
+...0002455544544231111111113000055555000001..
+...0002444445444231111111113000555055500001..
+...0002444445554231111111113000550005500001..
 ...0002244444442231111111113000000000000001..
 ...0002222222222233333333333000000000000001..
 ...0003333333333333333333333000000000000001..
@@ -923,6 +887,12 @@ WinPrompt:Valid
 ........................................................................................................................
 ........................................................................................................................
 translate:left:105
+
+_MergeWarning
+transparent
+
+_DisplayMergeWarning
+transparent
 
 _Temp
 pink
@@ -1030,6 +1000,8 @@ t = ClueCrate and Clue:First:_Q and Clue:Second:_Q and Clue:Third:_Q and Clue:Fo
 
 ! = Wall and WinPrompt:Invalid
 
+X = Wall and _MergeWarning
+
 Crate = BlankCrate or ClueCrate
 
 Pushable = Player or Crate
@@ -1044,7 +1016,6 @@ _TapaValue4 = _TapaValue
 _TapaValue5 = _TapaValue
 _TapaValue6 = _TapaValue
 
-Validator = Validator:Valid or Validator:Invalid
 Invalidator = InvalidBackground
 WinPrompt = WinPrompt:Valid or WinPrompt:Invalid
 
@@ -1068,7 +1039,6 @@ InvalidBackground
 Position -> Clue:Position:Value, NoClueCover:Position
 SingleClue:Value
 
-Validator
 Instructions
 WinPrompt:Validity
 
@@ -1085,15 +1055,13 @@ Position -> _UnsortedClue:Position:Value
 _SortCursor:Position
 Position -> _InvalidClue:Position
 _WildCardBlock
+_MergeWarning, _DisplayMergeWarning
 
 ======
 RULES
 ======
 
-( Only really relevant on first turn: put a validator in the top right corner )
-[ no Validator ] -> [ Validator:Invalid ]
-right [ Validator | ] -> [ | ]
-up [ Validator | ] -> [ | ]
+[ _DisplayMergeWarning ] -> [ ] message Oh no! I'm afraid you discovered this mechanic too early. You won't need it for now and it will be fairly obvious once you do.
 
 ( Normalise clues so they're all represented as multiclues:
   - Remove 0 clues
@@ -1125,6 +1093,7 @@ Value [ SingleClue:Value ] -> [ Clue:First:Value ]
 + [ > ClueCrate Clue:First:Value | stationary ClueCrate Clue:Fourth:Value ] -> [ ClueCrate Clue:First:Value | ClueCrate Clue:Fourth:Value ]
 
 ( Otherwise, merge the two crates. )
+[ > ClueCrate | stationary ClueCrate ] [ _MergeWarning ] -> [ > ClueCrate | stationary ClueCrate ] [ _DisplayMergeWarning ] again
 Value1 Position1 [ > ClueCrate Clue:Position:Value1 | stationary ClueCrate no Clue:Position1:Value ] -> [ > ClueCrate | ClueCrate Clue:Position1:Value1 ]
 [ > ClueCrate no Clue:Position:Value | stationary ClueCrate ] -> [  | ClueCrate ]
 
@@ -1226,11 +1195,11 @@ late [ _InvalidClue:Position ] -> [ InvalidBackground ]
 late [ Background ] -> [ CorrectBackground ]
 late [ CorrectBackground ] [ Invalidator ] -> [ Background ] [ Invalidator ]
 
-( Update validator and win prompt )
-late [ Validator:Invalid ] ->  [ Validator:Invalid _Temp ]
-late [ Validator ] [ WinPrompt ] -> [ Validator:Invalid ] [ WinPrompt:Invalid ]
-late [ Validator:Invalid CorrectBackground ] [ WinPrompt:Invalid ] -> [ Validator:Valid CorrectBackground ] [ WinPrompt:Valid ]
-late [ Validator:Valid _Temp ] -> sfx0
+( Update win prompt )
+late [ WinPrompt:Invalid ] ->  [ WinPrompt:Invalid _Temp ]
+late [ WinPrompt ] -> [ WinPrompt:Invalid ]
+late [ WinPrompt:Invalid CorrectBackground ] -> [ WinPrompt:Valid CorrectBackground ]
+late [ WinPrompt:Valid _Temp ] -> sfx0
 late [ _Temp ] -> [ ]
 
 ( Undo clue normalisation:
@@ -1295,7 +1264,7 @@ message Press X when none of the digits are red.
 message Level 1
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
-##########
+X#########
 #####...p#
 #####...##
 ####..4###
@@ -1306,7 +1275,7 @@ message Level 1
 message Level 2
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
-#########
+X########
 ####...##
 ##..7..##
 ##.p.7###
@@ -1316,20 +1285,20 @@ message Level 2
 message Level 3
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
-################
-########...#...#
-####.....5.....#
-####.#.######..#
-####.#3#####p..#
-##²#...#########
-###########!####
+X############
+####...##...#
+####.p.4....#
+####.#.######
+####...######
+##²##########
+##########!##
 
 ( Blank crates )
 
 message Level 4
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
-###########
+X##########
 #.....##2##
 #.###.#...#
 #.***...p.#
@@ -1340,19 +1309,21 @@ message Level 4
 message Level 5
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
-##########
-###3..####
-#.....####
-#...1**.##
-#3..#...p#
-########!#
+X##########
+#######1###
+######.####
+#####...###
+##.....####
+##...1**.##
+#1#..#...p#
+#########!#
 
 ( Multi-clues )
 
 message Level 6
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
-##########
+X#########
 #####...p#
 #####c..##
 ####...###
@@ -1363,7 +1334,7 @@ message Level 6
 message Level 7
 ( ✗ Non-unique tapa
   ✓ Unique tapaban end state )
-#########
+X########
 ##...####
 ##.7.p###
 ###.i..##
@@ -1374,7 +1345,7 @@ message Level 7
 message Level 8
 ( ✓ Non-unique tapa
   ✓ Unique tapaban end state )
-############
+X###########
 #...####.###
 #..l.##...##
 #.j.c......#
