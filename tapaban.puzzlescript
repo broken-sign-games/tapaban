@@ -70,8 +70,6 @@ First Second Third Fourth -> Third First Fourth Second
 Frame => NextFrame
 _8 _7 _6 _5 _4 _3 _2 _1 _0 -> _7 _6 _5 _4 _3 _2 _1 _0 _0
 
-directions1 => 
-
 ========
 OBJECTS
 ========
@@ -1240,7 +1238,12 @@ Instructions = InstructionsBasic or InstructionsContiguous or InstructionsMultiC
 SOUNDS
 =======
 
-sfx0 49474303
+sfx0 46953300 ( Satisfy all tapa clues )
+sfx1 3138902 ( Merge two crates )
+Player Move 60013507
+PlayerStuck:directions Create 83704304
+WinAnimation:_4 Create 94359908
+Crate Move 90858507
 
 ================
 COLLISIONLAYERS
@@ -1319,10 +1322,9 @@ Frame [ WinAnimation:Frame no _Temp ] -> [ WinAnimation:NextFrame _Temp ] again
 ( Pushing two crates into a wall attempts to combine the clues. )
 
 ( Check if the clues from both crates can fit on a single crate, otherwise propagate blocking. )
-[ > Pushable | stationary BlankCrate ] -> [ Pushable | BlankCrate ]
-+ [ > Pushable | stationary Player ] -> [ Pushable | Player ]
++ [ > Player | stationary Crate ] -> [ PlayerStuck:> | Crate ] again
++ [ > Crate | stationary BlankCrate ] -> [ Crate | BlankCrate ]
 + [ > BlankCrate | stationary ClueCrate ] -> [ BlankCrate | ClueCrate ]
-+ [ > Player | stationary ClueCrate ] -> [ PlayerStuck:> | ClueCrate ] again
 + [ > ClueCrate Clue:Fourth:Value | stationary ClueCrate Clue:First:Value ] -> [ ClueCrate Clue:Fourth:Value | ClueCrate Clue:First:Value ]
 + [ > ClueCrate Clue:Third:Value | stationary ClueCrate Clue:Second:Value ] -> [ ClueCrate Clue:Third:Value | ClueCrate Clue:Second:Value ]
 + [ > ClueCrate Clue:Second:Value | stationary ClueCrate Clue:Third:Value ] -> [ ClueCrate Clue:Second:Value | ClueCrate Clue:Third:Value ]
@@ -1331,7 +1333,7 @@ Frame [ WinAnimation:Frame no _Temp ] -> [ WinAnimation:NextFrame _Temp ] again
 ( Otherwise, merge the two crates. )
 [ > ClueCrate | stationary ClueCrate ] [ _MergeWarning ] -> [ > ClueCrate | stationary ClueCrate ] [ _DisplayMergeWarning ] again
 Value1 Position1 [ > ClueCrate Clue:Position:Value1 | stationary ClueCrate no Clue:Position1:Value ] -> [ > ClueCrate | ClueCrate Clue:Position1:Value1 ]
-[ > ClueCrate no Clue:Position:Value | stationary ClueCrate ] -> [  | ClueCrate ]
+[ > ClueCrate no Clue:Position:Value | stationary ClueCrate ] -> [  | ClueCrate ] sfx1
 
 ( Propagate crate movement to clues. )
 [ > Crate Clue:Position:Value ] -> [ > Crate > Clue:Position:Value ]
