@@ -1256,11 +1256,11 @@ Instructions = InstructionsBasic or InstructionsContiguous or InstructionsMultiC
 SOUNDS
 =======
 
-sfx1 3138902 ( Merge two crates )
-Player Move 60013507
-PlayerStuck:directions Create 83704304
-StartWinPromptAnimation Create 46953300
-WinAnimation:_4 Create 94359908
+sfx1 3186302:5 ( Merge two crates )
+Player Move 60013507:12
+PlayerStuck:directions Create 83704304:6
+StartWinPromptAnimation Create 46953300:6
+WinAnimation:_4 Create 94359908:14
 Crate Move 90858507
 
 ================
