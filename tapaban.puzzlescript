@@ -1125,6 +1125,9 @@ transparent
 _DisplayMergeWarning
 transparent
 
+_KonamiCode:Frame
+transparent
+
 _Temp
 pink
 
@@ -1229,7 +1232,7 @@ t = ClueCrate and Clue:First:_Q and Clue:Second:_Q and Clue:Third:_Q and Clue:Fo
 ² = Wall and InstructionsContiguous
 ³ = Wall and InstructionsMultiClue
 
-! = Wall and WinPrompt:Invalid
+! = Wall and WinPrompt:Invalid and _KonamiCode:_0
 
 X = Wall and _MergeWarning
 
@@ -1284,6 +1287,7 @@ Instructions
 WinPrompt:Validity, WinPromptAnimation:Frame
 WinAnimation:Frame
 
+_KonamiCode:Frame
 _Temp
 _Above, _Below, _SplitterTarget:Position
 _ProcessingClues, _ProcessedClues
@@ -1334,6 +1338,20 @@ Frame [ WinPromptAnimation:Frame no _Temp ] -> [ WinPromptAnimation:NextFrame _T
 Frame [ WinAnimation:Frame no _Temp ] -> [ WinAnimation:NextFrame _Temp ] again
 [ _Temp ] -> [ ]
 [ action Player CorrectBackground ] -> [ StartWinAnimation CorrectBackground ] again
+[ _KonamiCode:_8 ] [ action Player ] -> [ ] [ StartWinAnimation ] again
+
+( Process Konami code to skip level )
+[ _KonamiCode:_7 no _Temp ] [ right Player ] -> [ _KonamiCode:_8 _Temp ] [ right Player ]
+[ _KonamiCode:_6 no _Temp ] [ left Player ] -> [ _KonamiCode:_7 _Temp ] [ left Player ]
+[ _KonamiCode:_5 no _Temp ] [ right Player ] -> [ _KonamiCode:_6 _Temp ] [ right Player ]
+[ _KonamiCode:_4 no _Temp ] [ left Player ] -> [ _KonamiCode:_5 _Temp ] [ left Player ]
+[ _KonamiCode:_3 no _Temp ] [ down Player ] -> [ _KonamiCode:_4 _Temp ] [ down Player ]
+[ _KonamiCode:_2 no _Temp ] [ down Player ] -> [ _KonamiCode:_3 _Temp ] [ down Player ]
+[ _KonamiCode:_2 no _Temp ] [ up Player ] -> [ _KonamiCode:_2 _Temp ] [ up Player ]
+[ _KonamiCode:_1 no _Temp ] [ up Player ] -> [ _KonamiCode:_2 _Temp ] [ up Player ]
+[ _KonamiCode:Frame no _Temp ] [ up Player ] -> [ _KonamiCode:_1 _Temp ] [ up Player ]
+[ _KonamiCode:Frame no _Temp ] [ moving Player ] -> [ _KonamiCode:_0 _Temp ] [ moving Player ]
+[ _Temp ] -> [ ]
 
 ( Player can push multiple crates )
 [ > Pushable | Pushable ] -> [ > Pushable | > Pushable ]
