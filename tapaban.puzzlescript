@@ -1315,7 +1315,7 @@ RULES
 [ GridLines:^:> | no GridLines:^:< ] -> [ GridLines:^:> | GridLines:^:< ]
 [ GridLines:v:> GridLines:^:> ] -> [ GridLinesBoth:> ]
 
-[ _DisplayMergeWarning ] -> [ ] message Oh no! I'm afraid you discovered this mechanic too early. You won't need it for now and it will be fairly obvious once you do.
+[ _DisplayMergeWarning ] -> [ ] message Shhhhh! You weren't supposed to see this yet. Just pretend it never happened. It will be fairly obvious once you actually need this.
 
 [ PlayerStuck:directions ] -> [ Player ]
 
