@@ -4,6 +4,8 @@ homepage menderbug.itch.io
 background_color #ddd
 text_color #222
 
+game_uri https://menderbug.itch.io/tapaban
+
 sprite_size 15x15
 
 run_rules_on_level_start
